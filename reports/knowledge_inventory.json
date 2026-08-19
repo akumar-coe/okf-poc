@@ -1,0 +1,207 @@
+{
+  "bundle": "telecom",
+  "concept_count": 5,
+  "relationship_count": 11,
+  "concepts": [
+    {
+      "id": "incidents/high-latency.md",
+      "title": "High Network Latency",
+      "type": "Network Incident",
+      "description": "A network condition where observed packet latency exceeds the expected operational threshold.",
+      "tags": [
+        "incident",
+        "latency",
+        "network-performance"
+      ],
+      "domain": "telecom",
+      "lifecycle": "active",
+      "status": "stable",
+      "generated": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:00:00+05:30"
+      },
+      "verified": {
+        "by": "process:okf-poc-validator",
+        "at": "2026-08-19T12:25:00+05:30"
+      },
+      "stale_after": "2026-10-31",
+      "sources": [
+        {
+          "id": "synthetic-telecom-knowledge",
+          "resource": "synthetic://okf-poc/telecom",
+          "title": "Synthetic telecom knowledge created for the OKF PoC",
+          "author": "human:okf-poc-author"
+        }
+      ]
+    },
+    {
+      "id": "network-elements/gnb.md",
+      "title": "5G gNB",
+      "type": "Network Element",
+      "description": "A 5G radio access network node providing connectivity between user equipment and the 5G core.",
+      "tags": [
+        "5g",
+        "ran",
+        "gnb"
+      ],
+      "domain": "telecom",
+      "lifecycle": "active",
+      "status": "stable",
+      "generated": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:00:00+05:30"
+      },
+      "verified": {
+        "by": "process:okf-poc-validator",
+        "at": "2026-08-19T12:15:00+05:30"
+      },
+      "stale_after": "2026-12-31",
+      "sources": [
+        {
+          "id": "synthetic-telecom-knowledge",
+          "resource": "synthetic://okf-poc/telecom",
+          "title": "Synthetic telecom knowledge created for the OKF PoC",
+          "author": "human:okf-poc-author"
+        }
+      ]
+    },
+    {
+      "id": "network-elements/router.md",
+      "title": "IP Router",
+      "type": "Network Element",
+      "description": "A network element responsible for forwarding IP packets between network segments.",
+      "tags": [
+        "network",
+        "routing",
+        "ip"
+      ],
+      "domain": "telecom",
+      "lifecycle": "active",
+      "status": "stable",
+      "generated": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:00:00+05:30"
+      },
+      "verified": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:10:00+05:30"
+      },
+      "stale_after": "2026-12-31",
+      "sources": [
+        {
+          "id": "synthetic-telecom-knowledge",
+          "resource": "synthetic://okf-poc/telecom",
+          "title": "Synthetic telecom knowledge created for the OKF PoC",
+          "author": "human:okf-poc-author"
+        }
+      ]
+    },
+    {
+      "id": "network-elements/upf.md",
+      "title": "5G UPF",
+      "type": "Network Element",
+      "description": "A 5G core network function responsible for user-plane packet processing and forwarding.",
+      "tags": [
+        "5g",
+        "core",
+        "upf",
+        "user-plane"
+      ],
+      "domain": "telecom",
+      "lifecycle": "active",
+      "status": "stable",
+      "generated": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:00:00+05:30"
+      },
+      "verified": null,
+      "stale_after": "2026-12-31",
+      "sources": [
+        {
+          "id": "synthetic-telecom-knowledge",
+          "resource": "synthetic://okf-poc/telecom",
+          "title": "Synthetic telecom knowledge created for the OKF PoC",
+          "author": "human:okf-poc-author"
+        }
+      ]
+    },
+    {
+      "id": "services/mobile-broadband.md",
+      "title": "Mobile Broadband Service",
+      "type": "Network Service",
+      "description": "A telecom service providing IP connectivity to mobile subscribers.",
+      "tags": [
+        "service",
+        "mobile",
+        "broadband",
+        "5g"
+      ],
+      "domain": "telecom",
+      "lifecycle": "active",
+      "status": "stable",
+      "generated": {
+        "by": "human:okf-poc-author",
+        "at": "2026-08-19T12:00:00+05:30"
+      },
+      "verified": {
+        "by": "human:okf-poc-reviewer",
+        "at": "2026-08-19T12:20:00+05:30"
+      },
+      "stale_after": "2026-12-31",
+      "sources": [
+        {
+          "id": "synthetic-telecom-knowledge",
+          "resource": "synthetic://okf-poc/telecom",
+          "title": "Synthetic telecom knowledge created for the OKF PoC",
+          "author": "human:okf-poc-author"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "incidents/high-latency.md",
+      "target": "network-elements/router.md"
+    },
+    {
+      "source": "incidents/high-latency.md",
+      "target": "network-elements/gnb.md"
+    },
+    {
+      "source": "incidents/high-latency.md",
+      "target": "network-elements/upf.md"
+    },
+    {
+      "source": "incidents/high-latency.md",
+      "target": "services/mobile-broadband.md"
+    },
+    {
+      "source": "network-elements/gnb.md",
+      "target": "network-elements/upf.md"
+    },
+    {
+      "source": "network-elements/upf.md",
+      "target": "network-elements/gnb.md"
+    },
+    {
+      "source": "network-elements/upf.md",
+      "target": "services/mobile-broadband.md"
+    },
+    {
+      "source": "services/mobile-broadband.md",
+      "target": "network-elements/gnb.md"
+    },
+    {
+      "source": "services/mobile-broadband.md",
+      "target": "network-elements/upf.md"
+    },
+    {
+      "source": "services/mobile-broadband.md",
+      "target": "network-elements/router.md"
+    },
+    {
+      "source": "services/mobile-broadband.md",
+      "target": "incidents/high-latency.md"
+    }
+  ]
+}
