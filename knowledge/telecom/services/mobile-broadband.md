@@ -9,6 +9,21 @@ tags:
  - 5g
 domain: telecom
 lifecycle: active
+
+generated:
+ by: human:okf-poc-author
+ at: 2026-08-19T12:00:00+05:30
+verified:
+ by: human:okf-poc-reviewer
+ at: 2026-08-19T12:20:00+05:30
+status: stable
+stale_after: 2026-12-31
+sources:
+ - id: synthetic-telecom-knowledge
+   resource: synthetic://okf-poc/telecom
+   title: Synthetic telecom knowledge created for the OKF PoC
+   author: human:okf-poc-author
+
 ---
 # Mobile Broadband Service
 The Mobile Broadband Service provides IP connectivity to mobile subscribers.

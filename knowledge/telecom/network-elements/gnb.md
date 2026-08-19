@@ -8,6 +8,21 @@ tags:
  - gnb
 domain: telecom
 lifecycle: active
+
+generated:
+ by: human:okf-poc-author
+ at: 2026-08-19T12:00:00+05:30
+verified:
+ by: process:okf-poc-validator
+ at: 2026-08-19T12:15:00+05:30
+status: stable
+stale_after: 2026-12-31
+sources:
+ - id: synthetic-telecom-knowledge
+   resource: synthetic://okf-poc/telecom
+   title: Synthetic telecom knowledge created for the OKF PoC
+   author: human:okf-poc-author
+
 ---
 # 5G gNB
 The gNB is the primary radio access network node in a 5G network.

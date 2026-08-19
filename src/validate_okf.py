@@ -42,6 +42,10 @@ def validate_bundle():
            "title": metadata.get("title", path.stem),
            "type": metadata["type"],
            "tags": metadata.get("tags", []),
+           "generated": metadata.get("generated"),
+           "verified": metadata.get("verified"),
+           "status": metadata.get("status", "stable"),
+           "stale_after": metadata.get("stale_after"),
        })
        for link in find_links(body):
            # Ignore external URLs
@@ -67,10 +71,29 @@ def validate_bundle():
    print("\nConcept Inventory:")
    print("------------------")
    for concept in concept_metadata:
+       verified = concept["verified"]
+       if not verified:
+           trust = "unverified"
+       elif isinstance(verified, dict):
+           actor = verified.get("by", "")
+           trust = (
+               "human-reviewed"
+               if actor.startswith("human:")
+               else "machine-confirmed"
+           )
+       else:
+           actor = verified[-1].get("by", "")
+           trust = (
+               "human-reviewed"
+               if actor.startswith("human:")
+               else "machine-confirmed"
+           )
        print(
            f"  {concept['title']:<30} "
            f"{concept['type']:<20} "
-           f"tags={len(concept['tags'])}"
+           f"{trust:<18} "
+           f"status={concept['status']:<10} "
+           f"stale_after={concept['stale_after']}"
        )
    print("\nRelationships:")
    for source, target in links:
