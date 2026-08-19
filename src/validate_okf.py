@@ -22,6 +22,7 @@ def find_links(body):
 
 def validate_bundle():
    concepts = []
+   concept_metadata = []
    errors = []
    links = []
    for path in BUNDLE.rglob("*.md"):
@@ -36,6 +37,12 @@ def validate_bundle():
        if "type" not in metadata:
            errors.append(f"{path}: missing required 'type'")
        concepts.append(path)
+       concept_metadata.append({
+           "path": path,
+           "title": metadata.get("title", path.stem),
+           "type": metadata["type"],
+           "tags": metadata.get("tags", []),
+       })
        for link in find_links(body):
            # Ignore external URLs
            if link.startswith(("http://", "https://")):
@@ -57,6 +64,14 @@ def validate_bundle():
        for error in errors:
            print(f"  - {error}")
        return 1
+   print("\nConcept Inventory:")
+   print("------------------")
+   for concept in concept_metadata:
+       print(
+           f"  {concept['title']:<30} "
+           f"{concept['type']:<20} "
+           f"tags={len(concept['tags'])}"
+       )
    print("\nRelationships:")
    for source, target in links:
        print(f"  {source} -> {target}")
