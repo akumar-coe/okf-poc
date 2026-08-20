@@ -1,0 +1,138 @@
+questions:
+
+ - id: Q-F-001
+   category: factual
+   difficulty: easy
+   question: "What is the primary responsibility of the 5G UPF?"
+   expected_concepts:
+     - "5G UPF"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/upf.md"
+ - id: Q-F-002
+   category: factual
+   difficulty: easy
+   question: "What is the primary role of a 5G gNB?"
+   expected_concepts:
+     - "5G gNB"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/gnb.md"
+ - id: Q-F-003
+   category: factual
+   difficulty: easy
+   question: "What does an IP router do in the network?"
+   expected_concepts:
+     - "IP Router"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/router.md"
+ - id: Q-M-001
+   category: multi_entity
+   difficulty: medium
+   question: "Which network elements are involved in delivering the mobile broadband service?"
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+     - "Mobile Broadband Service -> 5G UPF"
+     - "Mobile Broadband Service -> IP Router"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+ - id: Q-R-001
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which network elements could contribute to high network latency?"
+   expected_concepts:
+     - "High Network Latency"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "High Network Latency -> 5G gNB"
+     - "High Network Latency -> 5G UPF"
+     - "High Network Latency -> IP Router"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+ - id: Q-R-002
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which service can be affected by high network latency?"
+   expected_concepts:
+     - "High Network Latency"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "High Network Latency -> Mobile Broadband Service"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "services/mobile-broadband.md"
+ - id: Q-MH-001
+   category: multi_hop
+   difficulty: hard
+   question: "If the UPF experiences overload, which service could be affected?"
+   expected_concepts:
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+ - id: Q-MH-002
+   category: multi_hop
+   difficulty: hard
+   question: "A mobile broadband service is experiencing high latency. Which network elements should an engineer investigate?"
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "High Network Latency"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "Mobile Broadband Service -> High Network Latency"
+     - "High Network Latency -> 5G gNB"
+     - "High Network Latency -> 5G UPF"
+     - "High Network Latency -> IP Router"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "incidents/high-latency.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+ - id: Q-E-001
+   category: explainability
+   difficulty: hard
+   question: "Why is the 5G UPF relevant when investigating high network latency?"
+   expected_concepts:
+     - "5G UPF"
+     - "High Network Latency"
+   expected_relationships:
+     - "High Network Latency -> 5G UPF"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "network-elements/upf.md"
+ - id: Q-E-002
+   category: explainability
+   difficulty: hard
+   question: "Explain the relationship between the mobile broadband service, the 5G gNB and the 5G UPF."
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "5G gNB"
+     - "5G UPF"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+     - "Mobile Broadband Service -> 5G UPF"
+     - "5G gNB -> 5G UPF"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"

@@ -34,5 +34,7 @@ The UPF receives user traffic from the [5G gNB](./gnb.md).
 The UPF provides connectivity for the [Mobile Broadband Service](../services/mobile-broadband.md).
 ## Operational relevance
 UPF overload can contribute to increased packet latency and packet loss.
+Because the UPF provides user-plane connectivity for the Mobile Broadband Service, 
+UPF overload can affect the performance of the Mobile Broadband Service.
 ## Synthetic knowledge
 This concept is synthetic knowledge created specifically for the OKF PoC.
