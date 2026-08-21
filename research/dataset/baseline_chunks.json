@@ -1,0 +1,65 @@
+[
+  {
+    "chunk_id": "C0-001",
+    "source": "high_latency_incident.md",
+    "source_path": "rag_baseline/documents/high_latency_incident.md",
+    "text": "High network latency occurs when packets take longer than expected to travel through the network. In a mobile broadband environment, high latency can affect the user experience and may result in slow application response or degraded service quality. Potentially relevant network elements include the 5G gNB, the 5G UPF and IP routers. Latency problems can originate from congestion, overloaded network elements, inefficient routing or problems in the transport path. When investigating high latency, network engineers may examine the performance and",
+    "word_count": 80
+  },
+  {
+    "chunk_id": "C0-002",
+    "source": "high_latency_incident.md",
+    "source_path": "rag_baseline/documents/high_latency_incident.md",
+    "text": "in the transport path. When investigating high latency, network engineers may examine the performance and connectivity of the gNB, UPF and IP routing infrastructure. High latency is therefore a network condition that can affect mobile broadband service quality.",
+    "word_count": 38
+  },
+  {
+    "chunk_id": "C0-003",
+    "source": "mobile_broadband_service.md",
+    "source_path": "rag_baseline/documents/mobile_broadband_service.md",
+    "text": "The mobile broadband service provides data connectivity to mobile users over a 5G network. The service depends on multiple network elements. The 5G gNB provides radio access to user equipment. The 5G UPF handles user-plane traffic and forwards packets through the core network. IP routers provide packet forwarding between network segments. A disruption or performance degradation in any of these network elements can affect the mobile broadband service. High network latency is one example of a condition that can negatively",
+    "word_count": 80
+  },
+  {
+    "chunk_id": "C0-004",
+    "source": "mobile_broadband_service.md",
+    "source_path": "rag_baseline/documents/mobile_broadband_service.md",
+    "text": "mobile broadband service. High network latency is one example of a condition that can negatively affect the quality of the mobile broadband service. Troubleshooting the service may therefore require examining the gNB, UPF and IP routing infrastructure.",
+    "word_count": 37
+  },
+  {
+    "chunk_id": "C0-005",
+    "source": "network_operations_guide.md",
+    "source_path": "rag_baseline/documents/network_operations_guide.md",
+    "text": "The 5G radio access network uses gNB nodes to provide connectivity to mobile devices. User-plane traffic is processed by the 5G UPF. The UPF is responsible for forwarding user traffic toward external networks. IP routers provide connectivity between different network segments and can be involved in transporting traffic between the radio access and core network components. When a mobile broadband service experiences degraded performance, operations teams should consider the health of the gNB, UPF and routers. For latency-related incidents, engineers",
+    "word_count": 80
+  },
+  {
+    "chunk_id": "C0-006",
+    "source": "network_operations_guide.md",
+    "source_path": "rag_baseline/documents/network_operations_guide.md",
+    "text": "teams should consider the health of the gNB, UPF and routers. For latency-related incidents, engineers should examine traffic load, packet forwarding behaviour, routing paths and the performance of the network elements involved. A high-latency condition does not necessarily indicate a failure of a single network element. Multiple components may contribute to the observed behaviour. UPF overload can contribute to increased packet latency and packet loss. Because the UPF provides user-plane connectivity for the Mobile Broadband Service, UPF overload can affect",
+    "word_count": 80
+  },
+  {
+    "chunk_id": "C0-007",
+    "source": "network_operations_guide.md",
+    "source_path": "rag_baseline/documents/network_operations_guide.md",
+    "text": "Because the UPF provides user-plane connectivity for the Mobile Broadband Service, UPF overload can affect the performance of the Mobile Broadband Service.",
+    "word_count": 22
+  },
+  {
+    "chunk_id": "C0-008",
+    "source": "telecom_network_overview.md",
+    "source_path": "rag_baseline/documents/telecom_network_overview.md",
+    "text": "A modern mobile broadband network consists of several interconnected network elements that work together to provide connectivity to users. The 5G gNB is a radio access network node that provides wireless connectivity between user equipment and the 5G core network. It is responsible for radio communication with mobile devices. The 5G UPF, or User Plane Function, is a core network component that handles user-plane traffic. It forwards packets between the mobile network and external data networks. An IP router forwards",
+    "word_count": 80
+  },
+  {
+    "chunk_id": "C0-009",
+    "source": "telecom_network_overview.md",
+    "source_path": "rag_baseline/documents/telecom_network_overview.md",
+    "text": "It forwards packets between the mobile network and external data networks. An IP router forwards IP packets between different network segments. Routers can connect network elements and transport traffic between different parts of the network. The gNB and UPF communicate as part of the mobile network architecture. The UPF also connects the mobile user plane to external data networks. Together, the gNB, UPF and IP routing infrastructure support mobile broadband services.",
+    "word_count": 71
+  }
+]
