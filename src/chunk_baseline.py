@@ -31,7 +31,9 @@ def chunk_paragraph(paragraph):
 def create_chunks():
    chunks = []
    chunk_number = 1
-   for path in sorted(DOC_DIR.glob("*.md")):
+   for path in sorted(DOC_DIR.rglob("*.md")):
+       if path.name == "index.md":
+           continue
        text = path.read_text(encoding="utf-8")
        # Remove Markdown heading lines but retain the actual content.
        text = re.sub(r"(?m)^\s*#+\s+.*$", "", text)
@@ -44,7 +46,7 @@ def create_chunks():
            for chunk_text in chunk_paragraph(paragraph):
                chunks.append({
                    "chunk_id": f"C0-{chunk_number:03d}",
-                   "source": path.name,
+                   "source": str(path.relative_to(DOC_DIR)),
                    "source_path": str(path),
                    "text": chunk_text,
                    "word_count": len(words(chunk_text))
@@ -61,7 +63,7 @@ def main():
    )
    print("Baseline Chunking")
    print("=================")
-   print(f"Documents : {len(list(DOC_DIR.glob('*.md')))}")
+   print(f"Documents : {len([p for p in DOC_DIR.rglob('*.md') if p.name != 'index.md'])}")
    print(f"Chunks    : {len(chunks)}")
    print(f"Output    : {OUTPUT}")
    print("\nChunk inventory:")
