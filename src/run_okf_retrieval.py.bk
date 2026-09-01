@@ -1,0 +1,285 @@
+import json
+import re
+import numpy as np
+import faiss
+from transformers import AutoTokenizer
+import onnxruntime as ort
+import yaml
+
+MODEL_DIR = "all-MiniLM-L6-v2"
+CORPUS_PATH = "research/dataset/baseline_chunks.json"
+QUESTIONS_PATH = "research/questions/evaluation_questions.yaml"
+INVENTORY_PATH = "reports/knowledge_inventory.json"
+
+def mean_pool(token_embeddings, attention_mask):
+   mask = attention_mask[..., None].astype(np.float32)
+   summed = np.sum(token_embeddings * mask, axis=1)
+   counts = np.clip(mask.sum(axis=1), a_min=1e-9, a_max=None)
+   return summed / counts
+
+def embed(texts, tokenizer, session):
+   inputs = tokenizer(
+       texts,
+       return_tensors="np",
+       padding=True,
+       truncation=True,
+       max_length=256,
+   )
+   outputs = session.run(
+       None,
+       {
+           "input_ids": inputs["input_ids"].astype(np.int64),
+           "attention_mask": inputs["attention_mask"].astype(np.int64),
+           "token_type_ids": inputs["token_type_ids"].astype(np.int64),
+       },
+   )
+   embeddings = mean_pool(
+       outputs[0],
+       inputs["attention_mask"],
+   )
+   embeddings = embeddings / np.linalg.norm(
+       embeddings,
+       axis=1,
+       keepdims=True,
+   )
+   return embeddings.astype(np.float32)
+
+def normalize(text):
+   return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+def concept_text(concept):
+   """
+   Build searchable text for an OKF concept.
+   """
+   parts = [
+       concept.get("id", ""),
+       concept.get("title", ""),
+       concept.get("type", ""),
+       concept.get("description", ""),
+       " ".join(concept.get("tags", [])),
+   ]
+   return normalize(" ".join(parts))
+
+def identify_seed_concepts(question, concepts):
+   """
+   Lightweight deterministic concept matching.
+   We deliberately avoid an LLM here so the experiment remains
+   reproducible and inexpensive.
+   """
+   q = normalize(question)
+   q_tokens = set(q.split())
+   scored = []
+   for concept in concepts:
+       text = concept_text(concept)
+       tokens = set(text.split())
+       overlap = len(q_tokens & tokens)
+       # Stronger signal when the concept title occurs directly
+       title = normalize(concept.get("title", ""))
+       title_bonus = 0
+       if title and title in q:
+           title_bonus = 10
+       score = overlap + title_bonus
+       if score > 0:
+           scored.append((score, concept["id"]))
+   scored.sort(reverse=True)
+   # Keep the strongest concept matches.
+   return [concept_id for _, concept_id in scored[:3]]
+
+def build_relationship_map(relationships):
+   graph = {}
+   for rel in relationships:
+       source = rel["source"]
+       target = rel["target"]
+       graph.setdefault(source, set()).add(target)
+       graph.setdefault(target, set()).add(source)
+   return graph
+
+def expand_concepts(seed_ids, graph):
+   """
+   One-hop graph expansion.
+   Include:
+     - seed concepts
+     - directly related concepts
+   """
+   expanded = set(seed_ids)
+   for seed in seed_ids:
+       expanded.update(graph.get(seed, set()))
+   return expanded
+
+def main():
+   # ------------------------------------------------------------
+   # Load corpus
+   # ------------------------------------------------------------
+   with open(CORPUS_PATH) as f:
+       corpus = json.load(f)
+   texts = [item["text"] for item in corpus]
+   print("Loaded corpus:", len(corpus), "chunks")
+   # ------------------------------------------------------------
+   # Load evaluation questions
+   # ------------------------------------------------------------
+   with open(QUESTIONS_PATH) as f:
+       benchmark = yaml.safe_load(f)
+   questions = benchmark["questions"]
+   print("Loaded questions:", len(questions))
+   # ------------------------------------------------------------
+   # Load OKF inventory
+   # ------------------------------------------------------------
+   with open(INVENTORY_PATH) as f:
+       inventory = json.load(f)
+   concepts = inventory["concepts"]
+   relationships = inventory["relationships"]
+   print("OKF concepts:", len(concepts))
+   print("OKF relationships:", len(relationships))
+   graph = build_relationship_map(relationships)
+   # ------------------------------------------------------------
+   # Load tokenizer + ONNX model
+   # ------------------------------------------------------------
+   tokenizer = AutoTokenizer.from_pretrained(
+       MODEL_DIR,
+       local_files_only=True,
+   )
+   session = ort.InferenceSession(
+       MODEL_DIR + "/onnx/model_quantized.onnx",
+       providers=["CPUExecutionProvider"],
+   )
+   print("MiniLM model loaded")
+   # ------------------------------------------------------------
+   # Embed complete corpus
+   # ------------------------------------------------------------
+   corpus_embeddings = embed(
+       texts,
+       tokenizer,
+       session,
+   )
+   print("Corpus embeddings:", corpus_embeddings.shape)
+   # ------------------------------------------------------------
+   # Global FAISS index
+   # ------------------------------------------------------------
+   dimension = corpus_embeddings.shape[1]
+   index = faiss.IndexFlatIP(dimension)
+   index.add(corpus_embeddings)
+   print("FAISS index created")
+   print("Vectors indexed:", index.ntotal)
+   # ------------------------------------------------------------
+   # Evaluation
+   # ------------------------------------------------------------
+   hit_at_1 = 0
+   hit_at_3 = 0
+   mrr_total = 0.0
+   print("\n================================")
+   print("OKF-AWARE RETRIEVAL RESULTS")
+   print("================================")
+   for q in questions:
+       query = q["question"]
+       required = set(q.get("required_evidence", []))
+       # --------------------------------------------------------
+       # Step 1: Identify OKF seed concepts
+       # --------------------------------------------------------
+       seed_concepts = identify_seed_concepts(
+           query,
+           concepts,
+       )
+       # --------------------------------------------------------
+       # Step 2: Expand through OKF relationships
+       # --------------------------------------------------------
+       expanded_concepts = expand_concepts(
+           seed_concepts,
+           graph,
+       )
+       # --------------------------------------------------------
+       # Step 3: Convert concepts into candidate corpus chunks
+       # --------------------------------------------------------
+       candidate_indices = []
+       for idx, item in enumerate(corpus):
+           source = item["source"]
+           if source in expanded_concepts:
+               candidate_indices.append(idx)
+       # Safety fallback:
+       # if no OKF candidate was identified, use the full corpus.
+       if not candidate_indices:
+           candidate_indices = list(range(len(corpus)))
+       # --------------------------------------------------------
+       # Step 4: Semantic ranking within OKF candidate set
+       # --------------------------------------------------------
+       query_embedding = embed(
+           [query],
+           tokenizer,
+           session,
+       )
+       candidate_matrix = corpus_embeddings[candidate_indices]
+       scores = np.matmul(
+           query_embedding,
+           candidate_matrix.T,
+       )[0]
+       order = np.argsort(-scores)
+       ranked_indices = [
+           candidate_indices[i]
+           for i in order
+       ]
+       retrieved = [
+           corpus[idx]["source"]
+           for idx in ranked_indices
+       ]
+       # --------------------------------------------------------
+       # Hit@1
+       # --------------------------------------------------------
+       hit1 = retrieved[0] in required
+       if hit1:
+           hit_at_1 += 1
+       # --------------------------------------------------------
+       # Hit@3
+       # --------------------------------------------------------
+       retrieved_top3 = set(retrieved[:3])
+       hit3 = required.issubset(retrieved_top3)
+       if hit3:
+           hit_at_3 += 1
+       # --------------------------------------------------------
+       # MRR
+       # First required evidence encountered
+       # --------------------------------------------------------
+       reciprocal_rank = 0.0
+       for rank, source in enumerate(
+           retrieved,
+           start=1,
+       ):
+           if source in required:
+               reciprocal_rank = 1.0 / rank
+               break
+       mrr_total += reciprocal_rank
+       # --------------------------------------------------------
+       # Print result
+       # --------------------------------------------------------
+       print("\n", q["id"])
+       print("Question:", query)
+       print("Required:", list(required))
+       print("OKF seeds:", seed_concepts)
+       print("OKF expanded:", sorted(expanded_concepts))
+       print("Candidates:", len(candidate_indices))
+       for rank, (idx, score) in enumerate(
+           zip(ranked_indices, [
+               scores[i] for i in order
+           ]),
+           start=1,
+       ):
+           print(
+               f" #{rank} "
+               f"score={score:.4f} "
+               f"source={corpus[idx]['source']} "
+               f"chunk={corpus[idx]['chunk_id']}"
+           )
+       print("Hit@1:", hit1)
+       print("Hit@3:", hit3)
+   # ------------------------------------------------------------
+   # Summary
+   # ------------------------------------------------------------
+   n = len(questions)
+   print("\n================================")
+   print("SUMMARY")
+   print("================================")
+   print(f"Questions : {n}")
+   print(f"Hit@1     : {hit_at_1 / n:.3f}")
+   print(f"Hit@3     : {hit_at_3 / n:.3f}")
+   print(f"MRR       : {mrr_total / n:.3f}")
+
+if __name__ == "__main__":
+   main()

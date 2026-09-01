@@ -3,6 +3,7 @@ import numpy as np
 import onnxruntime as ort
 import faiss
 from transformers import AutoTokenizer
+from evaluation import evaluate, mean_metric
 
 MODEL_DIR = "all-MiniLM-L6-v2"
 CORPUS_PATH = "research/dataset/baseline_chunks.json"
@@ -92,7 +93,10 @@ print("Vectors indexed:", index.ntotal)
 # --------------------------------------------------
 hit_at_1 = 0
 hit_at_3 = 0
-mrr_total = 0.0
+recall_at_3 = 0
+#mrr_total = 0.0
+baseline_metrics = []
+
 print("\n==============================")
 print("BASELINE RETRIEVAL RESULTS")
 print("==============================")
@@ -108,34 +112,57 @@ for q in questions:
        query_embedding,
        3
    )
-   retrieved = [
-       corpus[i]["source"]
-       for i in indices[0]
-   ]
+   baseline_results = []
+   for score, idx in zip(scores[0], indices[0]):
+       if idx < 0:
+           continue
+       baseline_results.append({
+           "index": int(idx),
+           "source": corpus[idx]["source"],
+           "chunk_id": corpus[idx]["chunk_id"],
+           "semantic_score": float(score),
+           "text": corpus[idx]["text"]
+       })
+   baseline_top3 = baseline_results[:3]
+   baseline_eval = evaluate(
+           baseline_top3,
+           q
+   )
+   
+   baseline_metrics.append(baseline_eval)
+   #retrieved = [
+   #    corpus[i]["source"]
+   #    for i in indices[0]
+   #]
    # ------------------------------------------------
    # Hit@1
    # ------------------------------------------------
-   hit1 = retrieved[0] in required
+   #hit1 = retrieved[0] in required
+   hit1 = mean_metric(baseline_metrics, "hit1")
    if hit1:
        hit_at_1 += 1
    # ------------------------------------------------
    # Hit@3
    # ------------------------------------------------
-   retrieved_required = set(retrieved) & required
-   hit3 = required.issubset(set(retrieved))
+   #retrieved_required = set(retrieved) & required
+   hit3 = mean_metric(baseline_metrics, "hit3")
+   #hit3 = required.issubset(set(retrieved))
    if hit3:
        hit_at_3 += 1
+   recall = mean_metric(baseline_metrics, "evidence_recall")
+   if recall:
+       recall_at_3 += recall
    # ------------------------------------------------
    # MRR
    # For multi-evidence questions we use the first
    # required evidence encountered.
    # ------------------------------------------------
-   reciprocal_rank = 0.0
-   for rank, source in enumerate(retrieved, start=1):
-       if source in required:
-           reciprocal_rank = 1.0 / rank
-           break
-   mrr_total += reciprocal_rank
+   #reciprocal_rank = 0.0
+   #for rank, source in enumerate(retrieved, start=1):
+   #    if source in required:
+   #        reciprocal_rank = 1.0 / rank
+   #        break
+   #mrr_total += reciprocal_rank
    # ------------------------------------------------
    # Print result
    # ------------------------------------------------
@@ -154,7 +181,11 @@ for q in questions:
        )
    print("Hit@1:", hit1)
    print("Hit@3:", hit3)
+   print("Evidence Recall@3:", recall)
 
+hit1 = mean_metric(baseline_metrics, "hit1")
+hit3 = mean_metric(baseline_metrics, "hit3")
+recall = mean_metric(baseline_metrics, "evidence_recall")
 # --------------------------------------------------
 # Summary
 # --------------------------------------------------
@@ -163,6 +194,9 @@ print("\n==============================")
 print("SUMMARY")
 print("==============================")
 print(f"Questions : {n}")
-print(f"Hit@1     : {hit_at_1 / n:.3f}")
-print(f"Hit@3     : {hit_at_3 / n:.3f}")
-print(f"MRR       : {mrr_total / n:.3f}")
+print(f"Hit@1     : {hit1:.3f}")
+print(f"Hit@3     : {hit3:.3f}")
+print(f"Recall@3  : {recall:.3f}")
+#print(f"Hit@1     : {hit_at_1 / n:.3f}")
+#print(f"Hit@3     : {hit_at_3 / n:.3f}")
+#print(f"Recall@3  : {recall_at_3 / n:.3f}")

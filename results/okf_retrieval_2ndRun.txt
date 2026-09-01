@@ -1,0 +1,321 @@
+Loaded corpus: 42 chunks
+Loaded questions: 10
+OKF concepts: 5
+OKF relationships: 11
+Loading local tokenizer...
+Loading local ONNX model...
+Local MiniLM ONNX model loaded
+Corpus embeddings: (42, 384)
+FAISS index created
+Vectors indexed: 42
+OKF concept embeddings: (5, 384)
+
+======================================================================
+OKF-AWARE RETRIEVAL EXPERIMENT
+======================================================================
+
+----------------------------------------------------------------------
+Q-F-001
+Question: What is the primary responsibility of the 5G UPF?
+----------------------------------------------------------------------
+
+OKF seeds:
+  5G UPF (score=0.7272)
+  5G gNB (score=0.4805)
+
+OKF expanded concepts: 4
+OKF candidate chunks: 33 / 42
+Candidate reduction: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.6802 source=network-elements/upf.md chunk=C0-032
+#2 score=0.6555 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.5965 source=network-elements/upf.md chunk=C0-033
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7602 semantic=0.6802 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.7417 semantic=0.6555 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.6973 semantic=0.5965 okf=1.00 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-F-002
+Question: What is the primary role of a 5G gNB?
+----------------------------------------------------------------------
+
+OKF seeds:
+  5G gNB (score=0.7992)
+  5G UPF (score=0.5669)
+
+OKF expanded concepts: 4
+OKF candidate chunks: 33 / 42
+Candidate reduction: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8176 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7544 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.6881 source=network-elements/gnb.md chunk=C0-010
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.8632 semantic=0.8176 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.8158 semantic=0.7544 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.7661 semantic=0.6881 okf=1.00 source=network-elements/gnb.md chunk=C0-010
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-F-003
+Question: What does an IP router do in the network?
+----------------------------------------------------------------------
+
+OKF seeds:
+  IP Router (score=0.7395)
+  5G UPF (score=0.2761)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.5687 source=network-elements/router.md chunk=C0-023
+#2 score=0.5311 source=network-elements/router.md chunk=C0-018
+#3 score=0.4108 source=network-elements/router.md chunk=C0-025
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.6765 semantic=0.5687 okf=1.00 source=network-elements/router.md chunk=C0-023
+#2 combined=0.6483 semantic=0.5311 okf=1.00 source=network-elements/router.md chunk=C0-018
+#3 combined=0.5581 semantic=0.4108 okf=1.00 source=network-elements/router.md chunk=C0-025
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-M-001
+Question: Which network elements are involved in delivering the mobile broadband service?
+----------------------------------------------------------------------
+
+OKF seeds:
+  Mobile Broadband Service (score=0.6501)
+  5G UPF (score=0.5283)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7283 source=services/mobile-broadband.md chunk=C0-038
+#2 score=0.6122 source=services/mobile-broadband.md chunk=C0-035
+#3 score=0.5968 source=services/mobile-broadband.md chunk=C0-040
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.7962 semantic=0.7283 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#2 combined=0.7091 semantic=0.6122 okf=1.00 source=services/mobile-broadband.md chunk=C0-035
+#3 combined=0.6976 semantic=0.5968 okf=1.00 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.250
+
+----------------------------------------------------------------------
+Q-R-001
+Question: Which network elements could contribute to high network latency?
+----------------------------------------------------------------------
+
+OKF seeds:
+  High Network Latency (score=0.7167)
+  5G UPF (score=0.3507)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7778 source=incidents/high-latency.md chunk=C0-004
+#2 score=0.7125 source=services/mobile-broadband.md chunk=C0-041
+#3 score=0.6696 source=incidents/high-latency.md chunk=C0-001
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.8333 semantic=0.7778 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#2 combined=0.7522 semantic=0.6696 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#3 combined=0.6706 semantic=0.5608 okf=1.00 source=incidents/high-latency.md chunk=C0-007
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.250
+
+----------------------------------------------------------------------
+Q-R-002
+Question: Which service can be affected by high network latency?
+----------------------------------------------------------------------
+
+OKF seeds:
+  High Network Latency (score=0.7531)
+  5G UPF (score=0.3665)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7333 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.6950 source=incidents/high-latency.md chunk=C0-001
+#3 score=0.6866 source=incidents/high-latency.md chunk=C0-004
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7713 semantic=0.6950 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#2 combined=0.7650 semantic=0.6866 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#3 combined=0.7026 semantic=0.6035 okf=1.00 source=incidents/high-latency.md chunk=C0-007
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-MH-001
+Question: If the UPF experiences overload, which service could be affected?
+----------------------------------------------------------------------
+
+OKF seeds:
+  5G UPF (score=0.4635)
+  High Network Latency (score=0.3206)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7425 source=network-elements/upf.md chunk=C0-033
+#2 score=0.5518 source=incidents/high-latency.md chunk=C0-005
+#3 score=0.4903 source=network-elements/upf.md chunk=C0-032
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8068 semantic=0.7425 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6639 semantic=0.5518 okf=1.00 source=incidents/high-latency.md chunk=C0-005
+#3 combined=0.6177 semantic=0.4903 okf=1.00 source=network-elements/upf.md chunk=C0-032
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-MH-002
+Question: A mobile broadband service is experiencing high latency. Which network elements should an engineer investigate?
+----------------------------------------------------------------------
+
+OKF seeds:
+  High Network Latency (score=0.6331)
+  Mobile Broadband Service (score=0.5154)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6515 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.6302 source=incidents/high-latency.md chunk=C0-007
+#3 score=0.5942 source=incidents/high-latency.md chunk=C0-001
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.400
+
+OKF-AWARE TOP-3:
+#1 combined=0.7387 semantic=0.6515 okf=1.00 source=services/mobile-broadband.md chunk=C0-041
+#2 combined=0.7226 semantic=0.6302 okf=1.00 source=incidents/high-latency.md chunk=C0-007
+#3 combined=0.6956 semantic=0.5942 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.400
+
+----------------------------------------------------------------------
+Q-E-001
+Question: Why is the 5G UPF relevant when investigating high network latency?
+----------------------------------------------------------------------
+
+OKF seeds:
+  5G UPF (score=0.6377)
+  High Network Latency (score=0.5880)
+
+OKF expanded concepts: 5
+OKF candidate chunks: 42 / 42
+Candidate reduction: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6609 source=network-elements/upf.md chunk=C0-033
+#2 score=0.5895 source=incidents/high-latency.md chunk=C0-004
+#3 score=0.5754 source=services/mobile-broadband.md chunk=C0-041
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7457 semantic=0.6609 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6921 semantic=0.5895 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#3 combined=0.6652 semantic=0.5536 okf=1.00 source=network-elements/upf.md chunk=C0-032
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-E-002
+Question: Explain the relationship between the mobile broadband service, the 5G gNB and the 5G UPF.
+----------------------------------------------------------------------
+
+OKF seeds:
+  5G gNB (score=0.7061)
+  5G UPF (score=0.6709)
+
+OKF expanded concepts: 4
+OKF candidate chunks: 33 / 42
+Candidate reduction: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8393 source=network-elements/upf.md chunk=C0-032
+#2 score=0.7514 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.6885 source=network-elements/gnb.md chunk=C0-013
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8794 semantic=0.8393 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.8135 semantic=0.7514 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.7664 semantic=0.6885 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.667
+
+
+======================================================================
+SUMMARY
+======================================================================
+Questions: 10
+
+                    BASELINE       OKF-AWARE
+-------------------------------------------------------
+Hit@1               1.000          1.000
+Hit@3               0.500          0.400
+Evidence Recall@3   0.707          0.657
+
+======================================================================
+END
+======================================================================
