@@ -23,6 +23,126 @@ OKF_SEED_CONCEPTS = 2
 SEMANTIC_WEIGHT = 0.75
 OKF_WEIGHT = 0.25
 
+
+def interpret_no_change(result, question):
+   """
+   Explain why OKF produced no measurable change.
+   """
+   base_hit3 = bool(result["baseline_hit3"])
+   okf_hit3 = bool(result["okf_hit3"])
+   base_recall = float(result["baseline_recall"])
+   okf_recall = float(result["okf_recall"])
+   base_sources = set(result.get("baseline_sources", []))
+   okf_sources = set(result.get("okf_sources", []))
+   required = {
+       item.replace("\\", "/")
+       for item in question.get("required_evidence", [])
+   }
+   base_required = base_sources.intersection(required)
+   okf_required = okf_sources.intersection(required)
+   added_sources = okf_sources - base_sources
+   # ---------------------------------------------------------
+   # Case 1: Baseline already had complete evidence
+   # ---------------------------------------------------------
+   if base_hit3 and okf_hit3 and base_recall == 1.0:
+       return (
+           "Baseline already retrieved the complete required "
+           "evidence set in Top-3, leaving no measurable "
+           "retrieval gap for OKF to improve."
+       )
+   # ---------------------------------------------------------
+   # Case 2: Same evidence and same metrics
+   # ---------------------------------------------------------
+   if (
+       base_sources == okf_sources
+       and base_hit3 == okf_hit3
+       and base_recall == okf_recall
+   ):
+       return (
+           "OKF did not change the retrieved Top-3 evidence or "
+           "the evaluation outcome."
+       )
+   # ---------------------------------------------------------
+   # Case 3: OKF changed sources but not required evidence
+   # ---------------------------------------------------------
+   if added_sources and okf_required == base_required:
+       return (
+           "OKF changed the retrieved sources but did not add "
+           "any additional required evidence, so the evaluation "
+           "outcome remained unchanged."
+       )
+   # ---------------------------------------------------------
+   # Case 4: Metrics unchanged despite source movement
+   # ---------------------------------------------------------
+   if base_hit3 == okf_hit3 and base_recall == okf_recall:
+       return (
+           "OKF altered the retrieval composition without changing "
+           "the required evidence coverage or Top-3 evaluation outcome."
+       )
+   # ---------------------------------------------------------
+   # Fallback
+   # ---------------------------------------------------------
+   return (
+       "OKF did not produce a measurable change in the evaluated "
+       "retrieval outcome."
+   )
+
+def normalize_source(source):
+   """Normalize source paths for comparison."""
+   return source.replace("\\", "/")
+
+def get_top3_sources(results):
+   """Return unique source paths from Top-3 results."""
+   return [
+       normalize_source(item["source"])
+       for item in results[:FINAL_K]
+   ]
+
+def explain_okf_change(question, baseline_top3, okf_top3):
+   """
+   Explain what changed between baseline and OKF-aware Top-3.
+   """
+   baseline_sources = get_top3_sources(baseline_top3)
+   okf_sources = get_top3_sources(okf_top3)
+   baseline_set = set(baseline_sources)
+   okf_set = set(okf_sources)
+   added = okf_set - baseline_set
+   removed = baseline_set - okf_set
+   required = {
+       normalize_source(item)
+       for item in question.get("required_evidence", [])
+   }
+   added_required = added.intersection(required)
+   added_non_required = added - required
+   if added_required:
+       interpretation = (
+           "OKF surfaced additional required evidence into the Top-3."
+       )
+   elif added:
+       interpretation = (
+           "OKF changed the Top-3 composition by surfacing additional "
+           "evidence, but the newly surfaced source was not itself a "
+           "required evidence source."
+       )
+   elif removed:
+       interpretation = (
+           "OKF changed the Top-3 composition by replacing one or more "
+           "baseline sources."
+       )
+   else:
+       interpretation = (
+           "OKF changed the evidence coverage without changing the "
+           "Top-3 source composition."
+       )
+   return {
+       "added": sorted(added),
+       "removed": sorted(removed),
+       "added_required": sorted(added_required),
+       "added_non_required": sorted(added_non_required),
+       "interpretation": interpretation,
+   }
+
+
 # ============================================================
 # Local ONNX embedding pipeline
 # ============================================================
@@ -337,61 +457,6 @@ def okf_score(
    return 0.0
 
 # ============================================================
-# Evaluation
-# ============================================================
-"""
-def evaluate(
-   results,
-   question
-):
-   required = {
-       item.replace("\\", "/")
-       for item in question.get(
-           "required_evidence",
-           []
-       )
-   }
-   retrieved = [
-       result["source"].replace("\\", "/")
-       for result in results
-   ]
-   if not required:
-       return {
-           "hit1": False,
-           "hit3": False,
-           "evidence_recall": 0.0,
-       }
-   retrieved_set = set(
-       retrieved
-   )
-   # Hit@1 = at least one required
-   # evidence source at rank 1.
-   hit1 = (
-       retrieved[0]
-       in required
-   )
-   # Hit@3 = ALL required evidence
-   # appears in top 3.
-   hit3 = required.issubset(
-       set(retrieved[:FINAL_K])
-   )
-   # Evidence recall tells us how much
-   # of the required evidence was retrieved.
-   evidence_recall = (
-       len(
-           required.intersection(
-               set(retrieved[:FINAL_K])
-           )
-       )
-       / len(required)
-   )
-   return {
-       "hit1": hit1,
-       "hit3": hit3,
-       "evidence_recall": evidence_recall,
-   }
-"""
-# ============================================================
 # Run experiment
 # ============================================================
 print()
@@ -400,6 +465,7 @@ print("OKF-AWARE RETRIEVAL EXPERIMENT")
 print("=" * 70)
 baseline_metrics = []
 okf_metrics = []
+question_results = []
 
 for question in questions:
    qid = question["id"]
@@ -479,6 +545,13 @@ for question in questions:
            OKF_WEIGHT
            * structural
        )
+       print(
+             f"DEBUG source={result['source']} "
+             f"concept={source_to_concept(result['source'])} "
+             f"semantic={result['semantic_score']:.4f} "
+             f"okf={structural:.2f} "
+             f"combined={combined:.4f}"
+            )
        enriched = dict(result)
        enriched["okf_score"] = structural
        enriched["combined_score"] = combined
@@ -487,15 +560,28 @@ for question in questions:
        )
    
    assert len(okf_results) == len(baseline_results)
-
    okf_results.sort(
-       key=lambda item:
-           item["combined_score"],
+       key=lambda item: item["combined_score"],
        reverse=True,
    )
-   okf_top3 = okf_results[
-       :FINAL_K
-   ]
+   okf_top3 = []
+   seen_concepts = set()
+   for item in okf_results:
+       concept_id = source_to_concept(item["source"])
+       if concept_id in seen_concepts:
+           continue
+       okf_top3.append(item)
+       seen_concepts.add(concept_id)
+       if len(okf_top3) == FINAL_K:
+           break
+   #okf_results.sort(
+   #    key=lambda item:
+   #        item["combined_score"],
+   #    reverse=True,
+   #)
+   #okf_top3 = okf_results[
+   #    :FINAL_K
+   #]
    okf_eval = evaluate(
        okf_top3,
        question,
@@ -506,6 +592,107 @@ for question in questions:
    okf_metrics.append(
        okf_eval
    )
+   question_results.append({
+       "id": qid,
+       "baseline_hit1": baseline_eval["hit1"],
+       "okf_hit1": okf_eval["hit1"],
+       "baseline_hit3": baseline_eval["hit3"],
+       "okf_hit3": okf_eval["hit3"],
+       "baseline_recall": baseline_eval["evidence_recall"],
+       "okf_recall": okf_eval["evidence_recall"],
+       # Keep Top-3 sources for interpretation
+       "baseline_sources": [
+           item["source"].replace("\\", "/")
+           for item in baseline_top3
+       ],
+       "okf_sources": [
+           item["source"].replace("\\", "/")
+           for item in okf_top3
+       ],
+       # Required evidence for this question
+       "required_evidence": [
+           item.replace("\\", "/")
+           for item in question.get("required_evidence", [])
+       ],
+   })
+   question_results[-1]["no_change_interpretation"] = (
+       interpret_no_change(
+           question_results[-1],
+           question
+       )
+   ) 
+   # ------------------------------------------------------------
+   # Diagnostic: compare baseline and OKF-aware Top-3
+   # ------------------------------------------------------------
+   if (
+      baseline_eval["hit3"] != okf_eval["hit3"]
+      or baseline_eval["evidence_recall"] != okf_eval["evidence_recall"]
+   ):
+      print()
+      print("OKF IMPACT:")
+      print(
+         f"  Hit@3: "
+         f"{baseline_eval['hit3']:.3f} -> "
+         f"{okf_eval['hit3']:.3f}"
+      )
+      print(
+         f"  Evidence Recall@3: "
+         f"{baseline_eval['evidence_recall']:.3f} -> "
+         f"{okf_eval['evidence_recall']:.3f}"
+      )
+      print()
+      print("  Baseline Top-3:")
+      for i, item in enumerate(baseline_top3, 1):
+          print(
+             f"    #{i} "
+             f"{item['source']} "
+             f"score={item.get('score', item.get('semantic_score', 0.0)):.4f}"
+          )
+      print()
+      print("  OKF-aware Top-3:")
+      for i, item in enumerate(okf_top3, 1):
+         print(
+            f"    #{i} "
+            f"{item['source']} "
+            f"combined={item['combined_score']:.4f}"
+         )
+   
+   # --------------------------------------------------------
+   # What changed in the Top-3?
+   # --------------------------------------------------------
+   baseline_sources = [
+       item["source"]
+       for item in baseline_top3
+   ]
+   okf_sources = [
+       item["source"]
+       for item in okf_top3
+   ]
+   added = [
+       source
+       for source in okf_sources
+       if source not in baseline_sources
+   ]
+   removed = [
+       source
+       for source in baseline_sources
+       if source not in okf_sources
+   ]
+   print()
+   print("  TOP-3 SOURCE CHANGES:")
+   if added:
+       print("    Added by OKF:")
+       for source in added:
+           print(f"      + {source}")
+   else:
+       print("    Added by OKF: None")
+   if removed:
+       print("    Removed by OKF:")
+       for source in removed:
+           print(f"      - {source}")
+   else:
+       print("    Removed by OKF: None")
+
    # --------------------------------------------------------
    # Output
    # --------------------------------------------------------
@@ -595,35 +782,9 @@ for question in questions:
        f"{okf_eval['evidence_recall']:.3f}"
    )
 
-"""
 # ============================================================
 # Summary
 # ============================================================
-def mean_metric(
-   metrics,
-   field
-):
-   values = []
-   for metric in metrics:
-       value = metric[field]
-       if isinstance(
-           value,
-           bool
-       ):
-           value = (
-               1.0
-               if value
-               else 0.0
-           )
-       values.append(
-           float(value)
-       )
-   return (
-       sum(values)
-       /
-       len(values)
-   )
-"""
 baseline_hit1 = mean_metric(
    baseline_metrics,
    "hit1"
@@ -677,6 +838,176 @@ print(
    f"{baseline_recall:.3f}          "
    f"{okf_recall:.3f}"
 )
+
+
+# ------------------------------------------------------------
+# Per-question results
+# ------------------------------------------------------------
+# ------------------------------------------------------------
+# Per-question results + OKF impact
+# ------------------------------------------------------------
+print()
+print("PER-QUESTION RESULTS")
+print("=" * 100)
+print(
+   f"{'Question':<10}"
+   f"{'Base H@1':>10}"
+   f"{'OKF H@1':>10}"
+   f"{'Base H@3':>10}"
+   f"{'OKF H@3':>10}"
+   f"{'Base R@3':>10}"
+   f"{'OKF R@3':>10}"
+   f"{'Δ H@3':>10}"
+   f"{'Δ R@3':>10}"
+   f"{'Impact':>15}"
+)
+print("-" * 100)
+improved = 0
+unchanged = 0
+regressed = 0
+for question, b, o in zip(questions, baseline_metrics, okf_metrics):
+   base_h1 = b["hit1"]
+   okf_h1 = o["hit1"]
+   base_h3 = b["hit3"]
+   okf_h3 = o["hit3"]
+   base_r3 = b["evidence_recall"]
+   okf_r3 = o["evidence_recall"]
+   delta_base_r3 = o["hit3"] - b["hit3"]
+   delta_okf_r3 = o["evidence_recall"] - b["evidence_recall"]
+   # Overall impact is based on Hit@3 and Evidence Recall@3
+   if okf_h3 > base_h3 or okf_r3 > base_r3:
+       impact = "IMPROVED"
+       improved += 1
+   elif okf_h3 < base_h3 or okf_r3 < base_r3:
+       impact = "REGRESSED"
+       regressed += 1
+   else:
+       impact = "NO CHANGE"
+       unchanged += 1
+   print(
+       f"{question['id']:<10}"
+       f"{base_h1:>10.3f}"
+       f"{okf_h1:>10.3f}"
+       f"{base_h3:>10.3f}"
+       f"{okf_h3:>10.3f}"
+       f"{base_r3:>10.3f}"
+       f"{okf_r3:>10.3f}"
+       f"{delta_base_r3:>10.3f}"
+       f"{delta_okf_r3:>10.3f}"
+       f"{impact:>15}"
+   )
+print("-" * 100)
+print()
+print("OKF IMPACT SUMMARY")
+print("-" * 40)
+print(f"Improved   : {improved}")
+print(f"No change  : {unchanged}")
+print(f"Regressed  : {regressed}")
+print(f"Total      : {len(baseline_metrics)}")
+
+# ------------------------------------------------------------
+# Changed results
+# ------------------------------------------------------------
+print()
+print("=" * 70)
+print("CHANGED RESULTS")
+print("=" * 70)
+improved = 0
+no_change = 0
+regressed = 0
+for result in question_results:
+   h3_delta = float(result["okf_hit3"]) - float(result["baseline_hit3"])
+   recall_delta = (
+       float(result["okf_recall"])
+       - float(result["baseline_recall"])
+   )
+   # Only show questions where something changed
+   if h3_delta == 0 and recall_delta == 0:
+       no_change += 1
+       continue
+   baseline_sources = set(result["baseline_sources"])
+   okf_sources = set(result["okf_sources"])
+   required_sources = set(result["required_evidence"])
+   added = okf_sources - baseline_sources
+   removed = baseline_sources - okf_sources
+   added_required = added.intersection(required_sources)
+   print()
+   print(result["id"])
+   # Determine overall impact
+   if h3_delta > 0 or recall_delta > 0:
+       impact = "IMPROVED"
+       improved += 1
+   elif h3_delta < 0 or recall_delta < 0:
+       impact = "REGRESSED"
+       regressed += 1
+   else:
+       impact = "NO CHANGE"
+   # Interpretation
+   if h3_delta > 0:
+       interpretation = (
+           "OKF brought the required evidence into the Top-3, "
+           "improving retrieval completeness."
+       )
+   elif recall_delta > 0 and added_required:
+       interpretation = (
+           "OKF surfaced additional required evidence in the Top-3, "
+           "increasing evidence coverage."
+       )
+   elif recall_delta > 0:
+       interpretation = (
+           "OKF increased evidence coverage by surfacing additional "
+           "relevant evidence in the Top-3."
+       )
+   elif h3_delta < 0 or recall_delta < 0:
+       interpretation = (
+           "OKF reduced retrieval performance for this question."
+       )
+   else:
+       interpretation = (
+           "OKF changed the ranking but did not change retrieval metrics."
+       )
+   print(f"  Impact: {impact}")
+   print(f"  Interpretation: {interpretation}")
+   if added:
+       print("  Sources added by OKF:")
+       for source in sorted(added):
+           if source in required_sources:
+               print(f"    + {source} [REQUIRED]")
+           else:
+               print(f"    + {source}")
+   if removed:
+       print("  Sources removed by OKF:")
+       for source in sorted(removed):
+           print(f"    - {source}")
+print()
+print("=" * 70)
+print("OKF IMPACT SUMMARY")
+print("=" * 70)
+print(f"Improved   : {improved}")
+print(f"No change  : {no_change}")
+print(f"Regressed  : {regressed}")
+print(f"Total      : {len(question_results)}")
+
+print()
+print("=" * 80)
+print("OKF NO-CHANGE ANALYSIS")
+print("=" * 80)
+for result in question_results:
+   base_hit3 = bool(result["baseline_hit3"])
+   okf_hit3 = bool(result["okf_hit3"])
+   base_recall = float(result["baseline_recall"])
+   okf_recall = float(result["okf_recall"])
+   if (
+       base_hit3 == okf_hit3
+       and base_recall == okf_recall
+   ):
+       print()
+       print(result["id"])
+       print(
+           f"  Interpretation: "
+           f"{result['no_change_interpretation']}"
+       )
+
 print()
 print("=" * 70)
 print("END")
