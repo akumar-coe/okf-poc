@@ -136,3 +136,179 @@ questions:
      - "services/mobile-broadband.md"
      - "network-elements/gnb.md"
      - "network-elements/upf.md"
+# Phase-3: New Questions to exploit the relationships 
+# Reverse relationship — gNB → service
+# Why: Tests whether the relationship can be used in the reverse direction.
+ - id: Q-P3-R-001
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which service depends on the 5G gNB for connectivity?"
+   expected_concepts:
+     - "5G gNB"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+   required_evidence:
+     - "network-elements/gnb.md"
+     - "services/mobile-broadband.md"
+# Reverse relationship — UPF → service
+# This is particularly useful because the UPF document explicitly contains the relationship to the Mobile Broadband Service.
+ - id: Q-P3-R-002
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which service depends on the 5G UPF for user-plane connectivity?"
+   expected_concepts:
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+# Reverse relationship — latency → components
+# This tests whether OKF can surface the set of related components, not just the incident document.
+ - id: Q-P3-R-003
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which network components are associated with the High Network Latency incident?"
+   expected_concepts:
+     - "High Network Latency"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "High Network Latency -> 5G gNB"
+     - "High Network Latency -> 5G UPF"
+     - "High Network Latency -> IP Router"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+# Service dependency reasoning
+# This is related to Q-M-001, but the wording changes from “which elements are involved” to an investigation/dependency question.
+ - id: Q-P3-MH-001
+   category: multi_hop
+   difficulty: hard
+   question: "If the Mobile Broadband Service is experiencing a problem, which network elements should be investigated along its service path?"
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+     - "Mobile Broadband Service -> 5G UPF"
+     - "Mobile Broadband Service -> IP Router"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+# Incident → service → components
+ - id: Q-P3-MH-002
+   category: multi_hop
+   difficulty: hard
+   question: "A High Network Latency incident affects the Mobile Broadband Service. Which network elements are relevant to investigating the service impact?"
+   expected_concepts:
+     - "High Network Latency"
+     - "Mobile Broadband Service"
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "High Network Latency -> Mobile Broadband Service"
+     - "High Network Latency -> 5G gNB"
+     - "High Network Latency -> 5G UPF"
+     - "High Network Latency -> IP Router"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+# gNB → UPF → service
+# This is one of the most important Phase 3 questions.
+# The semantic retriever may find the three documents individually, but the relationship chain is what gives the answer its structure.
+ - id: Q-P3-MH-003
+   category: multi_hop
+   difficulty: hard
+   question: "How is the 5G gNB connected to the Mobile Broadband Service through the 5G UPF?"
+   expected_concepts:
+     - "5G gNB"
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "5G gNB -> 5G UPF"
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+# Latency → UPF → service
+# This tests a meaningful operational chain:
+# incident → component → affected service
+ - id: Q-P3-MH-004
+   category: multi_hop
+   difficulty: hard
+   question: "Why could a High Network Latency condition involving the 5G UPF affect the Mobile Broadband Service?"
+   expected_concepts:
+     - "High Network Latency"
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "High Network Latency -> 5G UPF"
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+# Distractor-oriented question
+# This gives the semantic retriever potentially competing documents, while the relationship should help identify the UPF.
+ - id: Q-P3-D-001
+   category: relationship_reasoning
+   difficulty: hard
+   question: "A Mobile Broadband Service issue is suspected to originate in the user plane. Which network element is most directly relevant?"
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "5G UPF"
+   expected_relationships:
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+# Evidence completeness
+# This tests whether OKF improves evidence completeness, which is already one of our measured metrics.
+ - id: Q-P3-E-001
+   category: explainability
+   difficulty: hard
+   question: "What evidence connects the Mobile Broadband Service to the 5G gNB and the 5G UPF?"
+   expected_concepts:
+     - "Mobile Broadband Service"
+     - "5G gNB"
+     - "5G UPF"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+     - "Mobile Broadband Service -> 5G UPF"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+# Full relationship explanation
+# This is a good candidate for demonstrating the explainability/grounding value of the relationship layer.
+ - id: Q-P3-E-002
+   category: explainability
+   difficulty: hard
+   question: "Explain the relationship between High Network Latency, the 5G UPF and the Mobile Broadband Service."
+   expected_concepts:
+     - "High Network Latency"
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "High Network Latency -> 5G UPF"
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "incidents/high-latency.md"
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+
