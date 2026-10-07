@@ -311,4 +311,131 @@ questions:
      - "incidents/high-latency.md"
      - "network-elements/upf.md"
      - "services/mobile-broadband.md"
+# Phase 4: New questions
+ - id: Q-P4-C-001
+   category: factual
+   difficulty: medium
+   question: "What operational conditions at the 5G gNB can contribute to degraded user experience?"
+   expected_concepts:
+     - "5G gNB"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/gnb.md"
+
+ - id: Q-P4-C-002
+   category: factual
+   difficulty: medium
+   question: "What operational impact can an overloaded 5G UPF have on network performance?"
+   expected_concepts:
+     - "5G UPF"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/upf.md"
+
+ - id: Q-P4-C-003
+   category: factual
+   difficulty: medium
+   question: "What network performance problems can be associated with poor IP router health?"
+   expected_concepts:
+     - "IP Router"
+   expected_relationships: []
+   required_evidence:
+     - "network-elements/router.md"
+
+ - id: Q-P4-R-001
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which network element does the 5G gNB provide connectivity toward?"
+   expected_concepts:
+     - "5G gNB"
+     - "5G UPF"
+   expected_relationships:
+     - "5G gNB -> 5G UPF"
+   required_evidence:
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+
+ - id: Q-P4-R-002
+   category: relationship_reasoning
+   difficulty: medium
+   question: "Which network element receives user traffic from the 5G gNB?"
+   expected_concepts:
+     - "5G gNB"
+     - "5G UPF"
+   expected_relationships:
+     - "5G gNB -> 5G UPF"
+   required_evidence:
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+
+ - id: Q-P4-R-003
+   category: relationship_reasoning
+   difficulty: hard
+   question: "Which network element provides connectivity from the 5G Core toward external data networks?"
+   expected_concepts:
+     - "5G UPF"
+   expected_relationships:
+     - "5G UPF -> External Data Network"
+   required_evidence:
+     - "network-elements/upf.md"
+
+ - id: Q-P4-MH-001
+   category: multi_hop
+   difficulty: hard
+   question: "What network path connects the 5G gNB to an external data network?"
+   expected_concepts:
+     - "5G gNB"
+     - "5G UPF"
+     - "IP Router"
+   expected_relationships:
+     - "5G gNB -> 5G UPF"
+     - "5G UPF -> IP Router"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+     - "network-elements/router.md"
+
+ - id: Q-P4-MH-002
+   category: multi_hop
+   difficulty: hard
+   question: "A problem occurs in the user-plane path of the Mobile Broadband Service. Which network element is directly responsible for user-plane traffic handling, and which service can therefore be affected?"
+   expected_concepts:
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
+
+ - id: Q-P4-E-001
+   category: explainability
+   difficulty: hard
+   question: "Explain how the 5G gNB and 5G UPF are connected in the Mobile Broadband Service path."
+   expected_concepts:
+     - "5G gNB"
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "Mobile Broadband Service -> 5G gNB"
+     - "Mobile Broadband Service -> 5G UPF"
+     - "5G gNB -> 5G UPF"
+   required_evidence:
+     - "services/mobile-broadband.md"
+     - "network-elements/gnb.md"
+     - "network-elements/upf.md"
+
+ - id: Q-P4-E-002
+   category: explainability
+   difficulty: hard
+   question: "Why can an overloaded 5G UPF affect the performance of the Mobile Broadband Service?"
+   expected_concepts:
+     - "5G UPF"
+     - "Mobile Broadband Service"
+   expected_relationships:
+     - "5G UPF -> Mobile Broadband Service"
+   required_evidence:
+     - "network-elements/upf.md"
+     - "services/mobile-broadband.md"
 
