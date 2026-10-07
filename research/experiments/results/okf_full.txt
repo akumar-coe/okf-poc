@@ -1,0 +1,1842 @@
+Loaded corpus: 42 chunks
+Loaded questions: 30
+OKF concepts: 5
+OKF relationships: 11
+Loading local tokenizer...
+Loading local ONNX model...
+Local MiniLM ONNX model loaded
+Corpus embeddings: (42, 384)
+FAISS index created
+Vectors indexed: 42
+OKF concept embeddings: (5, 384)
+
+======================================================================
+OKF-AWARE RETRIEVAL EXPERIMENT
+======================================================================
+
+----------------------------------------------------------------------
+Q-F-001
+Question: What is the primary responsibility of the 5G UPF?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6802 okf=1.00 combined=0.7602
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6555 okf=1.00 combined=0.7417
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5965 okf=1.00 combined=0.6973
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5832 okf=1.00 combined=0.6874
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5398 okf=1.00 combined=0.6548
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5002 okf=0.50 combined=0.5001
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4931 okf=1.00 combined=0.6198
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4754 okf=1.00 combined=0.6065
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4298 okf=0.50 combined=0.4474
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4221 okf=1.00 combined=0.5666
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.7272)
+  5G gNB (score=0.4805)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.6802 source=network-elements/upf.md chunk=C0-032
+#2 score=0.6555 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.5965 source=network-elements/upf.md chunk=C0-033
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7602 semantic=0.6802 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.7417 semantic=0.6555 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.5001 semantic=0.5002 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-F-002
+Question: What is the primary role of a 5G gNB?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.8176 okf=1.00 combined=0.8632
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7544 okf=1.00 combined=0.8158
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6881 okf=1.00 combined=0.7661
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6616 okf=1.00 combined=0.7462
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6043 okf=1.00 combined=0.7032
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5603 okf=1.00 combined=0.6702
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5484 okf=0.50 combined=0.5363
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5165 okf=0.50 combined=0.5124
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4675 okf=0.50 combined=0.4756
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4605 okf=1.00 combined=0.5954
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7992)
+  5G UPF (score=0.5669)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8176 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7544 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.6881 source=network-elements/gnb.md chunk=C0-010
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.8632 semantic=0.8176 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.7462 semantic=0.6616 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.5363 semantic=0.5484 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-F-003
+Question: What does an IP router do in the network?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.5687 okf=1.00 combined=0.6765
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.5311 okf=1.00 combined=0.6483
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4108 okf=1.00 combined=0.5581
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.3463 okf=0.50 combined=0.3847
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3435 okf=0.50 combined=0.3826
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.2989 okf=1.00 combined=0.4742
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.2980 okf=0.50 combined=0.3485
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.2791 okf=0.50 combined=0.3343
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.2654 okf=1.00 combined=0.4490
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.2647 okf=0.50 combined=0.3235
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  IP Router (score=0.7395)
+  5G UPF (score=0.2761)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.5687 source=network-elements/router.md chunk=C0-023
+#2 score=0.5311 source=network-elements/router.md chunk=C0-018
+#3 score=0.4108 source=network-elements/router.md chunk=C0-025
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.6765 semantic=0.5687 okf=1.00 source=network-elements/router.md chunk=C0-023
+#2 combined=0.4490 semantic=0.2654 okf=1.00 source=network-elements/upf.md chunk=C0-027
+#3 combined=0.3847 semantic=0.3463 okf=0.50 source=services/mobile-broadband.md chunk=C0-038
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-M-001
+Question: Which network elements are involved in delivering the mobile broadband service?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7283 okf=1.00 combined=0.7962
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6122 okf=1.00 combined=0.7091
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5968 okf=1.00 combined=0.6976
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5854 okf=0.50 combined=0.5640
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5503 okf=1.00 combined=0.6627
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5439 okf=0.50 combined=0.5329
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5242 okf=1.00 combined=0.6432
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4961 okf=1.00 combined=0.6221
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4865 okf=1.00 combined=0.6149
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4779 okf=1.00 combined=0.6084
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.250 -> 0.500
+
+  Baseline Top-3:
+    #1 services/mobile-broadband.md score=0.7283
+    #2 services/mobile-broadband.md score=0.6122
+    #3 services/mobile-broadband.md score=0.5968
+
+  OKF-aware Top-3:
+    #1 services/mobile-broadband.md combined=0.7962
+    #2 network-elements/upf.md combined=0.6627
+    #3 incidents/high-latency.md combined=0.5640
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + incidents/high-latency.md
+    Removed by OKF: None
+
+OKF seeds:
+  Mobile Broadband Service (score=0.6501)
+  5G UPF (score=0.5283)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7283 source=services/mobile-broadband.md chunk=C0-038
+#2 score=0.6122 source=services/mobile-broadband.md chunk=C0-035
+#3 score=0.5968 source=services/mobile-broadband.md chunk=C0-040
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.7962 semantic=0.7283 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#2 combined=0.6627 semantic=0.5503 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.5640 semantic=0.5854 okf=0.50 source=incidents/high-latency.md chunk=C0-008
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-R-001
+Question: Which network elements could contribute to high network latency?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.7778 okf=1.00 combined=0.8333
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7125 okf=0.50 combined=0.6594
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6696 okf=1.00 combined=0.7522
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5608 okf=1.00 combined=0.6706
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4529 okf=0.50 combined=0.4647
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3967 okf=1.00 combined=0.5475
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.3727 okf=1.00 combined=0.5295
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.3538 okf=0.50 combined=0.3904
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.3474 okf=0.50 combined=0.3855
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.3231 okf=0.50 combined=0.3673
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.250 -> 0.500
+
+  Baseline Top-3:
+    #1 incidents/high-latency.md score=0.7778
+    #2 services/mobile-broadband.md score=0.7125
+    #3 incidents/high-latency.md score=0.6696
+
+  OKF-aware Top-3:
+    #1 incidents/high-latency.md combined=0.8333
+    #2 services/mobile-broadband.md combined=0.6594
+    #3 network-elements/upf.md combined=0.5295
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.7167)
+  5G UPF (score=0.3507)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7778 source=incidents/high-latency.md chunk=C0-004
+#2 score=0.7125 source=services/mobile-broadband.md chunk=C0-041
+#3 score=0.6696 source=incidents/high-latency.md chunk=C0-001
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.8333 semantic=0.7778 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#2 combined=0.6594 semantic=0.7125 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+#3 combined=0.5295 semantic=0.3727 okf=1.00 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-R-002
+Question: Which service can be affected by high network latency?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7333 okf=0.50 combined=0.6750
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6950 okf=1.00 combined=0.7713
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6866 okf=1.00 combined=0.7650
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.6115 okf=0.50 combined=0.5836
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6035 okf=1.00 combined=0.7026
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5340 okf=0.50 combined=0.5255
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4818 okf=1.00 combined=0.6113
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4667 okf=1.00 combined=0.6001
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4187 okf=0.50 combined=0.4391
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3730 okf=1.00 combined=0.5297
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.7531)
+  5G UPF (score=0.3665)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7333 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.6950 source=incidents/high-latency.md chunk=C0-001
+#3 score=0.6866 source=incidents/high-latency.md chunk=C0-004
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7713 semantic=0.6950 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#2 combined=0.6750 semantic=0.7333 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+#3 combined=0.6113 semantic=0.4818 okf=1.00 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-MH-001
+Question: If the UPF experiences overload, which service could be affected?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.7425 okf=1.00 combined=0.8068
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5518 okf=1.00 combined=0.6639
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4903 okf=1.00 combined=0.6177
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4236 okf=1.00 combined=0.5677
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.3988 okf=0.50 combined=0.4241
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.3984 okf=0.50 combined=0.4238
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.3927 okf=0.50 combined=0.4195
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.3871 okf=0.50 combined=0.4154
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.3503 okf=0.50 combined=0.3877
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.3302 okf=1.00 combined=0.4977
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/gnb.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.4635)
+  High Network Latency (score=0.3206)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7425 source=network-elements/upf.md chunk=C0-033
+#2 score=0.5518 source=incidents/high-latency.md chunk=C0-005
+#3 score=0.4903 source=network-elements/upf.md chunk=C0-032
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8068 semantic=0.7425 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6639 semantic=0.5518 okf=1.00 source=incidents/high-latency.md chunk=C0-005
+#3 combined=0.4241 semantic=0.3988 okf=0.50 source=network-elements/gnb.md chunk=C0-016
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-MH-002
+Question: A mobile broadband service is experiencing high latency. Which network elements should an engineer investigate?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6515 okf=1.00 combined=0.7387
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6302 okf=1.00 combined=0.7226
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5942 okf=1.00 combined=0.6956
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5850 okf=1.00 combined=0.6888
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5625 okf=1.00 combined=0.6719
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5546 okf=1.00 combined=0.6660
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5463 okf=0.50 combined=0.5347
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4935 okf=1.00 combined=0.6201
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4827 okf=0.50 combined=0.4870
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4675 okf=1.00 combined=0.6006
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.400 -> 0.600
+
+  Baseline Top-3:
+    #1 services/mobile-broadband.md score=0.6515
+    #2 incidents/high-latency.md score=0.6302
+    #3 incidents/high-latency.md score=0.5942
+
+  OKF-aware Top-3:
+    #1 services/mobile-broadband.md combined=0.7387
+    #2 incidents/high-latency.md combined=0.7226
+    #3 network-elements/upf.md combined=0.5347
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.6331)
+  Mobile Broadband Service (score=0.5154)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6515 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.6302 source=incidents/high-latency.md chunk=C0-007
+#3 score=0.5942 source=incidents/high-latency.md chunk=C0-001
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.400
+
+OKF-AWARE TOP-3:
+#1 combined=0.7387 semantic=0.6515 okf=1.00 source=services/mobile-broadband.md chunk=C0-041
+#2 combined=0.7226 semantic=0.6302 okf=1.00 source=incidents/high-latency.md chunk=C0-007
+#3 combined=0.5347 semantic=0.5463 okf=0.50 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.600
+
+----------------------------------------------------------------------
+Q-E-001
+Question: Why is the 5G UPF relevant when investigating high network latency?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6609 okf=1.00 combined=0.7457
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5895 okf=1.00 combined=0.6921
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5754 okf=0.50 combined=0.5565
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5645 okf=0.50 combined=0.5484
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5536 okf=1.00 combined=0.6652
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5169 okf=1.00 combined=0.6377
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4808 okf=1.00 combined=0.6106
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4596 okf=1.00 combined=0.5947
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4473 okf=1.00 combined=0.5854
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4245 okf=0.50 combined=0.4434
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF: None
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.6377)
+  High Network Latency (score=0.5880)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6609 source=network-elements/upf.md chunk=C0-033
+#2 score=0.5895 source=incidents/high-latency.md chunk=C0-004
+#3 score=0.5754 source=services/mobile-broadband.md chunk=C0-041
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7457 semantic=0.6609 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6921 semantic=0.5895 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#3 combined=0.5565 semantic=0.5754 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-E-002
+Question: Explain the relationship between the mobile broadband service, the 5G gNB and the 5G UPF.
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.8393 okf=1.00 combined=0.8794
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7514 okf=1.00 combined=0.8135
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6885 okf=1.00 combined=0.7664
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6336 okf=0.50 combined=0.6002
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6318 okf=1.00 combined=0.7239
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5987 okf=1.00 combined=0.6990
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5822 okf=0.50 combined=0.5617
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5822 okf=0.50 combined=0.5616
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5629 okf=0.50 combined=0.5472
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5335 okf=0.50 combined=0.5251
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.8393
+    #2 network-elements/gnb.md score=0.7514
+    #3 network-elements/gnb.md score=0.6885
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8794
+    #2 network-elements/gnb.md combined=0.8135
+    #3 services/mobile-broadband.md combined=0.6002
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7061)
+  5G UPF (score=0.6709)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8393 source=network-elements/upf.md chunk=C0-032
+#2 score=0.7514 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.6885 source=network-elements/gnb.md chunk=C0-013
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8794 semantic=0.8393 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.8135 semantic=0.7514 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.6002 semantic=0.6336 okf=0.50 source=services/mobile-broadband.md chunk=C0-038
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-R-001
+Question: Which service depends on the 5G gNB for connectivity?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.8219 okf=1.00 combined=0.8664
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7781 okf=1.00 combined=0.8336
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7135 okf=0.50 combined=0.6601
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6921 okf=1.00 combined=0.7691
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6909 okf=1.00 combined=0.7681
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6717 okf=0.50 combined=0.6288
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5607 okf=1.00 combined=0.6705
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5457 okf=1.00 combined=0.6593
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5117 okf=0.50 combined=0.5088
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4938 okf=0.50 combined=0.4954
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.8263)
+  5G UPF (score=0.5519)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8219 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7781 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.7135 source=services/mobile-broadband.md chunk=C0-040
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.8664 semantic=0.8219 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.7681 semantic=0.6909 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.6601 semantic=0.7135 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-R-002
+Question: Which service depends on the 5G UPF for user-plane connectivity?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7854 okf=0.50 combined=0.7141
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.7135 okf=1.00 combined=0.7851
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6777 okf=1.00 combined=0.7582
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6704 okf=1.00 combined=0.7528
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5950 okf=1.00 combined=0.6962
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5806 okf=1.00 combined=0.6855
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5794 okf=0.50 combined=0.5596
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5749 okf=1.00 combined=0.6812
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5529 okf=0.50 combined=0.5397
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5171 okf=1.00 combined=0.6378
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/gnb.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.7375)
+  5G gNB (score=0.5675)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.7854 source=services/mobile-broadband.md chunk=C0-040
+#2 score=0.7135 source=network-elements/upf.md chunk=C0-030
+#3 score=0.6777 source=network-elements/upf.md chunk=C0-032
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7851 semantic=0.7135 okf=1.00 source=network-elements/upf.md chunk=C0-030
+#2 combined=0.7528 semantic=0.6704 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.7141 semantic=0.7854 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-R-003
+Question: Which network components are associated with the High Network Latency incident?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.8148 okf=0.50 combined=0.7361
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.8026 okf=1.00 combined=0.8520
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.7365 okf=1.00 combined=0.8024
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6222 okf=1.00 combined=0.7166
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.5116 okf=0.50 combined=0.5087
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4505 okf=1.00 combined=0.5879
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4136 okf=1.00 combined=0.5602
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.3824 okf=1.00 combined=0.5368
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3756 okf=1.00 combined=0.5317
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.3620 okf=0.50 combined=0.3965
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.250 -> 0.500
+
+  Baseline Top-3:
+    #1 services/mobile-broadband.md score=0.8148
+    #2 incidents/high-latency.md score=0.8026
+    #3 incidents/high-latency.md score=0.7365
+
+  OKF-aware Top-3:
+    #1 incidents/high-latency.md combined=0.8520
+    #2 services/mobile-broadband.md combined=0.7361
+    #3 network-elements/upf.md combined=0.5368
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.7970)
+  5G UPF (score=0.3814)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.8148 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.8026 source=incidents/high-latency.md chunk=C0-001
+#3 score=0.7365 source=incidents/high-latency.md chunk=C0-004
+Baseline Hit@1: False
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.8520 semantic=0.8026 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#2 combined=0.7361 semantic=0.8148 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+#3 combined=0.5368 semantic=0.3824 okf=1.00 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-P3-MH-001
+Question: If the Mobile Broadband Service is experiencing a problem, which network elements should be investigated along its service path?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6626 okf=1.00 combined=0.7469
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6217 okf=1.00 combined=0.7163
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5839 okf=1.00 combined=0.6879
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5782 okf=1.00 combined=0.6837
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5326 okf=1.00 combined=0.6494
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4610 okf=1.00 combined=0.5957
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4586 okf=0.50 combined=0.4689
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4548 okf=1.00 combined=0.5911
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4547 okf=1.00 combined=0.5910
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4390 okf=0.50 combined=0.4543
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.250 -> 0.500
+
+  Baseline Top-3:
+    #1 incidents/high-latency.md score=0.6626
+    #2 services/mobile-broadband.md score=0.6217
+    #3 services/mobile-broadband.md score=0.5839
+
+  OKF-aware Top-3:
+    #1 incidents/high-latency.md combined=0.7469
+    #2 services/mobile-broadband.md combined=0.7163
+    #3 network-elements/upf.md combined=0.4689
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  Mobile Broadband Service (score=0.6052)
+  High Network Latency (score=0.3961)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6626 source=incidents/high-latency.md chunk=C0-008
+#2 score=0.6217 source=services/mobile-broadband.md chunk=C0-038
+#3 score=0.5839 source=services/mobile-broadband.md chunk=C0-040
+Baseline Hit@1: False
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.250
+
+OKF-AWARE TOP-3:
+#1 combined=0.7469 semantic=0.6626 okf=1.00 source=incidents/high-latency.md chunk=C0-008
+#2 combined=0.7163 semantic=0.6217 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#3 combined=0.4689 semantic=0.4586 okf=0.50 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: False
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.500
+
+----------------------------------------------------------------------
+Q-P3-MH-002
+Question: A High Network Latency incident affects the Mobile Broadband Service. Which network elements are relevant to investigating the service impact?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7088 okf=1.00 combined=0.7816
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6824 okf=1.00 combined=0.7618
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6766 okf=1.00 combined=0.7575
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6091 okf=1.00 combined=0.7068
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5684 okf=0.50 combined=0.5513
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5590 okf=1.00 combined=0.6693
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5566 okf=1.00 combined=0.6674
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.5386 okf=0.50 combined=0.5290
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5379 okf=1.00 combined=0.6534
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4958 okf=1.00 combined=0.6218
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.400 -> 0.600
+
+  Baseline Top-3:
+    #1 services/mobile-broadband.md score=0.7088
+    #2 incidents/high-latency.md score=0.6824
+    #3 incidents/high-latency.md score=0.6766
+
+  OKF-aware Top-3:
+    #1 services/mobile-broadband.md combined=0.7816
+    #2 incidents/high-latency.md combined=0.7618
+    #3 network-elements/upf.md combined=0.5513
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.7174)
+  Mobile Broadband Service (score=0.5378)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7088 source=services/mobile-broadband.md chunk=C0-041
+#2 score=0.6824 source=incidents/high-latency.md chunk=C0-001
+#3 score=0.6766 source=incidents/high-latency.md chunk=C0-008
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.400
+
+OKF-AWARE TOP-3:
+#1 combined=0.7816 semantic=0.7088 okf=1.00 source=services/mobile-broadband.md chunk=C0-041
+#2 combined=0.7618 semantic=0.6824 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#3 combined=0.5513 semantic=0.5684 okf=0.50 source=network-elements/upf.md chunk=C0-033
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.600
+
+----------------------------------------------------------------------
+Q-P3-MH-003
+Question: How is the 5G gNB connected to the Mobile Broadband Service through the 5G UPF?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.8593 okf=1.00 combined=0.8945
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.8025 okf=1.00 combined=0.8518
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7361 okf=1.00 combined=0.8021
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6320 okf=1.00 combined=0.7240
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6108 okf=0.50 combined=0.5831
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5963 okf=0.50 combined=0.5722
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5775 okf=0.50 combined=0.5581
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5676 okf=1.00 combined=0.6757
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5537 okf=1.00 combined=0.6652
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5300 okf=0.50 combined=0.5225
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.8593
+    #2 network-elements/gnb.md score=0.8025
+    #3 network-elements/gnb.md score=0.7361
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8945
+    #2 network-elements/gnb.md combined=0.8518
+    #3 services/mobile-broadband.md combined=0.5831
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7330)
+  5G UPF (score=0.6692)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8593 source=network-elements/upf.md chunk=C0-032
+#2 score=0.8025 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.7361 source=network-elements/gnb.md chunk=C0-013
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8945 semantic=0.8593 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.8518 semantic=0.8025 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.5831 semantic=0.6108 okf=0.50 source=services/mobile-broadband.md chunk=C0-038
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-MH-004
+Question: Why could a High Network Latency condition involving the 5G UPF affect the Mobile Broadband Service?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.7460 okf=1.00 combined=0.8095
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5923 okf=1.00 combined=0.6942
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5651 okf=1.00 combined=0.6738
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5526 okf=0.50 combined=0.5394
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5380 okf=1.00 combined=0.6535
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5322 okf=0.50 combined=0.5241
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5275 okf=1.00 combined=0.6456
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4969 okf=0.50 combined=0.4977
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4943 okf=1.00 combined=0.6207
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4620 okf=0.50 combined=0.4715
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.7460
+    #2 network-elements/upf.md score=0.5923
+    #3 incidents/high-latency.md score=0.5651
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8095
+    #2 incidents/high-latency.md combined=0.6738
+    #3 services/mobile-broadband.md combined=0.5394
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.6073)
+  5G UPF (score=0.5878)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7460 source=network-elements/upf.md chunk=C0-033
+#2 score=0.5923 source=network-elements/upf.md chunk=C0-032
+#3 score=0.5651 source=incidents/high-latency.md chunk=C0-004
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8095 semantic=0.7460 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6738 semantic=0.5651 okf=1.00 source=incidents/high-latency.md chunk=C0-004
+#3 combined=0.5394 semantic=0.5526 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-D-001
+Question: A Mobile Broadband Service issue is suspected to originate in the user plane. Which network element is most directly relevant?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6348 okf=0.50 combined=0.6011
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6189 okf=1.00 combined=0.7142
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5713 okf=1.00 combined=0.6785
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5470 okf=1.00 combined=0.6603
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5179 okf=1.00 combined=0.6384
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4977 okf=1.00 combined=0.6233
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4894 okf=0.50 combined=0.4921
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4844 okf=1.00 combined=0.6133
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4806 okf=1.00 combined=0.6104
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4728 okf=0.50 combined=0.4796
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.500 -> 1.000
+
+  Baseline Top-3:
+    #1 incidents/high-latency.md score=0.6348
+    #2 services/mobile-broadband.md score=0.6189
+    #3 services/mobile-broadband.md score=0.5713
+
+  OKF-aware Top-3:
+    #1 services/mobile-broadband.md combined=0.7142
+    #2 network-elements/upf.md combined=0.6384
+    #3 incidents/high-latency.md combined=0.6011
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  Mobile Broadband Service (score=0.5529)
+  5G UPF (score=0.4891)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6348 source=incidents/high-latency.md chunk=C0-008
+#2 score=0.6189 source=services/mobile-broadband.md chunk=C0-038
+#3 score=0.5713 source=services/mobile-broadband.md chunk=C0-040
+Baseline Hit@1: False
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.7142 semantic=0.6189 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#2 combined=0.6384 semantic=0.5179 okf=1.00 source=network-elements/upf.md chunk=C0-030
+#3 combined=0.6011 semantic=0.6348 okf=0.50 source=incidents/high-latency.md chunk=C0-008
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-E-001
+Question: What evidence connects the Mobile Broadband Service to the 5G gNB and the 5G UPF?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.8103 okf=1.00 combined=0.8577
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7952 okf=1.00 combined=0.8464
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6947 okf=1.00 combined=0.7710
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5938 okf=0.50 combined=0.5703
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5885 okf=1.00 combined=0.6914
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5828 okf=1.00 combined=0.6871
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5581 okf=0.50 combined=0.5435
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5502 okf=0.50 combined=0.5376
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5377 okf=0.50 combined=0.5282
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5267 okf=1.00 combined=0.6450
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.8103
+    #2 network-elements/gnb.md score=0.7952
+    #3 network-elements/gnb.md score=0.6947
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8577
+    #2 network-elements/gnb.md combined=0.8464
+    #3 services/mobile-broadband.md combined=0.5703
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.6833)
+  5G UPF (score=0.6199)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8103 source=network-elements/upf.md chunk=C0-032
+#2 score=0.7952 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.6947 source=network-elements/gnb.md chunk=C0-013
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8577 semantic=0.8103 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.8464 semantic=0.7952 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.5703 semantic=0.5938 okf=0.50 source=services/mobile-broadband.md chunk=C0-038
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P3-E-002
+Question: Explain the relationship between High Network Latency, the 5G UPF and the Mobile Broadband Service.
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.7312 okf=1.00 combined=0.7984
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6571 okf=1.00 combined=0.7429
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5878 okf=0.50 combined=0.5659
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5746 okf=0.50 combined=0.5559
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5576 okf=0.50 combined=0.5432
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5530 okf=0.50 combined=0.5398
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5506 okf=1.00 combined=0.6630
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5371 okf=1.00 combined=0.6528
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5317 okf=1.00 combined=0.6488
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5117 okf=0.50 combined=0.5088
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.7312
+    #2 network-elements/upf.md score=0.6571
+    #3 services/mobile-broadband.md score=0.5878
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.7984
+    #2 incidents/high-latency.md combined=0.6630
+    #3 services/mobile-broadband.md combined=0.5659
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + incidents/high-latency.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.6363)
+  High Network Latency (score=0.6155)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7312 source=network-elements/upf.md chunk=C0-033
+#2 score=0.6571 source=network-elements/upf.md chunk=C0-032
+#3 score=0.5878 source=services/mobile-broadband.md chunk=C0-038
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.7984 semantic=0.7312 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6630 semantic=0.5506 okf=1.00 source=incidents/high-latency.md chunk=C0-001
+#3 combined=0.5659 semantic=0.5878 okf=0.50 source=services/mobile-broadband.md chunk=C0-038
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-C-001
+Question: What operational conditions at the 5G gNB can contribute to degraded user experience?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6481 okf=1.00 combined=0.7361
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6003 okf=1.00 combined=0.7002
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5538 okf=1.00 combined=0.6653
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5531 okf=1.00 combined=0.6648
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4776 okf=1.00 combined=0.6082
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4635 okf=1.00 combined=0.5976
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4630 okf=0.50 combined=0.4722
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4589 okf=1.00 combined=0.5941
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4411 okf=0.50 combined=0.4559
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3969 okf=0.50 combined=0.4226
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.6558)
+  5G UPF (score=0.4315)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.6481 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.6003 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.5538 source=network-elements/gnb.md chunk=C0-016
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7361 semantic=0.6481 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.6082 semantic=0.4776 okf=1.00 source=network-elements/upf.md chunk=C0-030
+#3 combined=0.4722 semantic=0.4630 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-C-002
+Question: What operational impact can an overloaded 5G UPF have on network performance?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.7103 okf=1.00 combined=0.7827
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6004 okf=1.00 combined=0.7003
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5214 okf=1.00 combined=0.6411
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5141 okf=0.50 combined=0.5106
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4400 okf=0.50 combined=0.4550
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4298 okf=0.50 combined=0.4474
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4247 okf=1.00 combined=0.5685
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4034 okf=1.00 combined=0.5526
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3959 okf=1.00 combined=0.5469
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3858 okf=1.00 combined=0.5394
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/gnb.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.6170)
+  High Network Latency (score=0.3842)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.7103 source=network-elements/upf.md chunk=C0-033
+#2 score=0.6004 source=incidents/high-latency.md chunk=C0-005
+#3 score=0.5214 source=network-elements/upf.md chunk=C0-032
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7827 semantic=0.7103 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.7003 semantic=0.6004 okf=1.00 source=incidents/high-latency.md chunk=C0-005
+#3 combined=0.5106 semantic=0.5141 okf=0.50 source=network-elements/gnb.md chunk=C0-015
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-C-003
+Question: What network performance problems can be associated with poor IP router health?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.6940 okf=1.00 combined=0.7705
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5301 okf=0.50 combined=0.5226
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4402 okf=1.00 combined=0.5802
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4352 okf=1.00 combined=0.5764
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4163 okf=1.00 combined=0.5623
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3837 okf=1.00 combined=0.5378
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.3500 okf=1.00 combined=0.5125
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.3399 okf=0.50 combined=0.3799
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.3384 okf=1.00 combined=0.5038
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.3286 okf=1.00 combined=0.4964
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF: None
+    Removed by OKF: None
+
+OKF seeds:
+  High Network Latency (score=0.4391)
+  IP Router (score=0.3541)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6940 source=network-elements/router.md chunk=C0-025
+#2 score=0.5301 source=services/mobile-broadband.md chunk=C0-041
+#3 score=0.4402 source=incidents/high-latency.md chunk=C0-005
+Baseline Hit@1: True
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7705 semantic=0.6940 okf=1.00 source=network-elements/router.md chunk=C0-025
+#2 combined=0.5802 semantic=0.4402 okf=1.00 source=incidents/high-latency.md chunk=C0-005
+#3 combined=0.5226 semantic=0.5301 okf=0.50 source=services/mobile-broadband.md chunk=C0-041
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-R-001
+Question: Which network element does the 5G gNB provide connectivity toward?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.8519 okf=1.00 combined=0.8890
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7786 okf=1.00 combined=0.8339
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7623 okf=1.00 combined=0.8217
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6683 okf=1.00 combined=0.7512
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6273 okf=0.50 combined=0.5955
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5963 okf=0.50 combined=0.5722
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5888 okf=1.00 combined=0.6916
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5812 okf=0.50 combined=0.5609
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5651 okf=1.00 combined=0.6738
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5193 okf=1.00 combined=0.6395
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.500 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/gnb.md score=0.8519
+    #2 network-elements/gnb.md score=0.7786
+    #3 network-elements/gnb.md score=0.7623
+
+  OKF-aware Top-3:
+    #1 network-elements/gnb.md combined=0.8890
+    #2 network-elements/upf.md combined=0.7512
+    #3 services/mobile-broadband.md combined=0.5955
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.8498)
+  5G UPF (score=0.5815)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8519 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7786 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.7623 source=network-elements/gnb.md chunk=C0-010
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8890 semantic=0.8519 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.7512 semantic=0.6683 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.5955 semantic=0.6273 okf=0.50 source=services/mobile-broadband.md chunk=C0-039
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-R-002
+Question: Which network element receives user traffic from the 5G gNB?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7731 okf=1.00 combined=0.8298
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7153 okf=1.00 combined=0.7865
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6957 okf=1.00 combined=0.7718
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6815 okf=1.00 combined=0.7611
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6657 okf=1.00 combined=0.7493
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6170 okf=0.50 combined=0.5878
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5624 okf=0.50 combined=0.5468
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5492 okf=0.50 combined=0.5369
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4939 okf=1.00 combined=0.6204
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4809 okf=1.00 combined=0.6107
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.500 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/gnb.md score=0.7731
+    #2 network-elements/gnb.md score=0.7153
+    #3 network-elements/gnb.md score=0.6957
+
+  OKF-aware Top-3:
+    #1 network-elements/gnb.md combined=0.8298
+    #2 network-elements/upf.md combined=0.7611
+    #3 services/mobile-broadband.md combined=0.5878
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7699)
+  5G UPF (score=0.5286)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.7731 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7153 source=network-elements/gnb.md chunk=C0-010
+#3 score=0.6957 source=network-elements/gnb.md chunk=C0-015
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8298 semantic=0.7731 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.7611 semantic=0.6815 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.5878 semantic=0.6170 okf=0.50 source=services/mobile-broadband.md chunk=C0-039
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-R-003
+Question: Which network element provides connectivity from the 5G Core toward external data networks?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6175 okf=1.00 combined=0.7131
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6122 okf=0.50 combined=0.5841
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5538 okf=0.50 combined=0.5404
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5455 okf=1.00 combined=0.6591
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5448 okf=1.00 combined=0.6586
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5344 okf=1.00 combined=0.6508
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5146 okf=1.00 combined=0.6359
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5052 okf=1.00 combined=0.6289
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4417 okf=1.00 combined=0.5813
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4097 okf=0.00 combined=0.3073
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.000 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/gnb.md score=0.6175
+    #2 services/mobile-broadband.md score=0.6122
+    #3 services/mobile-broadband.md score=0.5538
+
+  OKF-aware Top-3:
+    #1 network-elements/gnb.md combined=0.7131
+    #2 network-elements/upf.md combined=0.6591
+    #3 services/mobile-broadband.md combined=0.5841
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.6206)
+  5G gNB (score=0.5977)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.6175 source=network-elements/gnb.md chunk=C0-014
+#2 score=0.6122 source=services/mobile-broadband.md chunk=C0-040
+#3 score=0.5538 source=services/mobile-broadband.md chunk=C0-039
+Baseline Hit@1: False
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.7131 semantic=0.6175 okf=1.00 source=network-elements/gnb.md chunk=C0-014
+#2 combined=0.6591 semantic=0.5455 okf=1.00 source=network-elements/upf.md chunk=C0-027
+#3 combined=0.5841 semantic=0.6122 okf=0.50 source=services/mobile-broadband.md chunk=C0-040
+OKF Hit@1: False
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-MH-001
+Question: What network path connects the 5G gNB to an external data network?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7731 okf=1.00 combined=0.8298
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.7353 okf=0.50 combined=0.6765
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7287 okf=1.00 combined=0.7965
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6537 okf=1.00 combined=0.7403
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6264 okf=1.00 combined=0.7198
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5245 okf=0.50 combined=0.5183
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5090 okf=1.00 combined=0.6317
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4927 okf=0.50 combined=0.4945
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4158 okf=1.00 combined=0.5619
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4091 okf=0.00 combined=0.3068
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 0.000
+  Evidence Recall@3: 0.500 -> 0.750
+
+  Baseline Top-3:
+    #1 network-elements/gnb.md score=0.7731
+    #2 services/mobile-broadband.md score=0.7353
+    #3 network-elements/gnb.md score=0.7287
+
+  OKF-aware Top-3:
+    #1 network-elements/gnb.md combined=0.8298
+    #2 network-elements/upf.md combined=0.7198
+    #3 services/mobile-broadband.md combined=0.6765
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + network-elements/upf.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7408)
+  5G UPF (score=0.4488)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.7731 source=network-elements/gnb.md chunk=C0-013
+#2 score=0.7353 source=services/mobile-broadband.md chunk=C0-039
+#3 score=0.7287 source=network-elements/gnb.md chunk=C0-015
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8298 semantic=0.7731 okf=1.00 source=network-elements/gnb.md chunk=C0-013
+#2 combined=0.7198 semantic=0.6264 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#3 combined=0.6765 semantic=0.7353 okf=0.50 source=services/mobile-broadband.md chunk=C0-039
+OKF Hit@1: True
+OKF Hit@3: False
+OKF Evidence Recall@3: 0.750
+
+----------------------------------------------------------------------
+Q-P4-MH-002
+Question: A problem occurs in the user-plane path of the Mobile Broadband Service. Which network element is directly responsible for user-plane traffic handling, and which service can therefore be affected?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.6291 okf=0.50 combined=0.5968
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5932 okf=1.00 combined=0.6949
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5920 okf=1.00 combined=0.6940
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5839 okf=1.00 combined=0.6879
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5142 okf=1.00 combined=0.6356
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5006 okf=1.00 combined=0.6255
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4978 okf=1.00 combined=0.6233
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.4849 okf=0.50 combined=0.4887
+DEBUG source=network-elements/router.md concept=network-elements/router.md semantic=0.4790 okf=0.50 combined=0.4843
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.4749 okf=1.00 combined=0.6062
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF: None
+    Removed by OKF: None
+
+OKF seeds:
+  Mobile Broadband Service (score=0.5439)
+  5G UPF (score=0.4767)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.6291 source=incidents/high-latency.md chunk=C0-008
+#2 score=0.5932 source=network-elements/upf.md chunk=C0-030
+#3 score=0.5920 source=services/mobile-broadband.md chunk=C0-038
+Baseline Hit@1: False
+Baseline Hit@3: True
+Baseline Evidence Recall@3: 1.000
+
+OKF-AWARE TOP-3:
+#1 combined=0.6949 semantic=0.5932 okf=1.00 source=network-elements/upf.md chunk=C0-030
+#2 combined=0.6940 semantic=0.5920 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#3 combined=0.5968 semantic=0.6291 okf=0.50 source=incidents/high-latency.md chunk=C0-008
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-E-001
+Question: Explain how the 5G gNB and 5G UPF are connected in the Mobile Broadband Service path.
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.8428 okf=1.00 combined=0.8821
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7695 okf=1.00 combined=0.8271
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.7024 okf=1.00 combined=0.7768
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6413 okf=0.50 combined=0.6059
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.6137 okf=0.50 combined=0.5853
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.6041 okf=1.00 combined=0.7030
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5872 okf=0.50 combined=0.5654
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5638 okf=1.00 combined=0.6728
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.5621 okf=1.00 combined=0.6716
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.5475 okf=0.50 combined=0.5356
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.667 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.8428
+    #2 network-elements/gnb.md score=0.7695
+    #3 network-elements/gnb.md score=0.7024
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8821
+    #2 network-elements/gnb.md combined=0.8271
+    #3 services/mobile-broadband.md combined=0.6059
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G gNB (score=0.7092)
+  5G UPF (score=0.6495)
+
+OKF expanded concepts: 4
+OKF graph coverage: 33 / 42
+Semantic reranking pool: 21.4%
+
+BASELINE TOP-3:
+#1 score=0.8428 source=network-elements/upf.md chunk=C0-032
+#2 score=0.7695 source=network-elements/gnb.md chunk=C0-015
+#3 score=0.7024 source=network-elements/gnb.md chunk=C0-013
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.667
+
+OKF-AWARE TOP-3:
+#1 combined=0.8821 semantic=0.8428 okf=1.00 source=network-elements/upf.md chunk=C0-032
+#2 combined=0.8271 semantic=0.7695 okf=1.00 source=network-elements/gnb.md chunk=C0-015
+#3 combined=0.6059 semantic=0.6413 okf=0.50 source=services/mobile-broadband.md chunk=C0-039
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+----------------------------------------------------------------------
+Q-P4-E-002
+Question: Why can an overloaded 5G UPF affect the performance of the Mobile Broadband Service?
+----------------------------------------------------------------------
+OKF reranking candidate pool: 10 semantic_results
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.8175 okf=1.00 combined=0.8632
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.6042 okf=1.00 combined=0.7031
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5898 okf=0.50 combined=0.5673
+DEBUG source=incidents/high-latency.md concept=incidents/high-latency.md semantic=0.5404 okf=0.50 combined=0.5303
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.5156 okf=0.50 combined=0.5117
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4948 okf=1.00 combined=0.6211
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4374 okf=1.00 combined=0.5780
+DEBUG source=network-elements/gnb.md concept=network-elements/gnb.md semantic=0.4240 okf=0.50 combined=0.4430
+DEBUG source=services/mobile-broadband.md concept=services/mobile-broadband.md semantic=0.4082 okf=1.00 combined=0.5562
+DEBUG source=network-elements/upf.md concept=network-elements/upf.md semantic=0.3994 okf=1.00 combined=0.5496
+
+OKF IMPACT:
+  Hit@3: 0.000 -> 1.000
+  Evidence Recall@3: 0.500 -> 1.000
+
+  Baseline Top-3:
+    #1 network-elements/upf.md score=0.8175
+    #2 network-elements/upf.md score=0.6042
+    #3 incidents/high-latency.md score=0.5898
+
+  OKF-aware Top-3:
+    #1 network-elements/upf.md combined=0.8632
+    #2 services/mobile-broadband.md combined=0.6211
+    #3 incidents/high-latency.md combined=0.5673
+
+  TOP-3 SOURCE CHANGES:
+    Added by OKF:
+      + services/mobile-broadband.md
+    Removed by OKF: None
+
+OKF seeds:
+  5G UPF (score=0.5844)
+  Mobile Broadband Service (score=0.5314)
+
+OKF expanded concepts: 5
+OKF graph coverage: 42 / 42
+Semantic reranking pool: 0.0%
+
+BASELINE TOP-3:
+#1 score=0.8175 source=network-elements/upf.md chunk=C0-033
+#2 score=0.6042 source=network-elements/upf.md chunk=C0-032
+#3 score=0.5898 source=incidents/high-latency.md chunk=C0-005
+Baseline Hit@1: True
+Baseline Hit@3: False
+Baseline Evidence Recall@3: 0.500
+
+OKF-AWARE TOP-3:
+#1 combined=0.8632 semantic=0.8175 okf=1.00 source=network-elements/upf.md chunk=C0-033
+#2 combined=0.6211 semantic=0.4948 okf=1.00 source=services/mobile-broadband.md chunk=C0-038
+#3 combined=0.5673 semantic=0.5898 okf=0.50 source=incidents/high-latency.md chunk=C0-005
+OKF Hit@1: True
+OKF Hit@3: True
+OKF Evidence Recall@3: 1.000
+
+
+======================================================================
+SUMMARY
+======================================================================
+Questions: 30
+
+                    BASELINE       OKF-AWARE
+-------------------------------------------------------
+Hit@1               0.833          0.933
+Hit@3               0.367          0.733
+Evidence Recall@3   0.660          0.882
+
+PER-QUESTION RESULTS
+====================================================================================================
+Question    Base H@1   OKF H@1  Base H@3   OKF H@3  Base R@3   OKF R@3     Δ H@3     Δ R@3         Impact
+----------------------------------------------------------------------------------------------------
+Q-F-001        1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-F-002        1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-F-003        1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-M-001        1.000     1.000     0.000     0.000     0.250     0.500     0.000     0.250       IMPROVED
+Q-R-001        1.000     1.000     0.000     0.000     0.250     0.500     0.000     0.250       IMPROVED
+Q-R-002        1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-MH-001       1.000     1.000     0.000     0.000     0.500     0.500     0.000     0.000      NO CHANGE
+Q-MH-002       1.000     1.000     0.000     0.000     0.400     0.600     0.000     0.200       IMPROVED
+Q-E-001        1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-E-002        1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P3-R-001     1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P3-R-002     1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P3-R-003     0.000     1.000     0.000     0.000     0.250     0.500     0.000     0.250       IMPROVED
+Q-P3-MH-001     0.000     0.000     0.000     0.000     0.250     0.500     0.000     0.250       IMPROVED
+Q-P3-MH-002     1.000     1.000     0.000     0.000     0.400     0.600     0.000     0.200       IMPROVED
+Q-P3-MH-003     1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P3-MH-004     1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P3-D-001     0.000     1.000     0.000     1.000     0.500     1.000     1.000     0.500       IMPROVED
+Q-P3-E-001     1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P3-E-002     1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P4-C-001     1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P4-C-002     1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P4-C-003     1.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P4-R-001     1.000     1.000     0.000     1.000     0.500     1.000     1.000     0.500       IMPROVED
+Q-P4-R-002     1.000     1.000     0.000     1.000     0.500     1.000     1.000     0.500       IMPROVED
+Q-P4-R-003     0.000     0.000     0.000     1.000     0.000     1.000     1.000     1.000       IMPROVED
+Q-P4-MH-001     1.000     1.000     0.000     0.000     0.500     0.750     0.000     0.250       IMPROVED
+Q-P4-MH-002     0.000     1.000     1.000     1.000     1.000     1.000     0.000     0.000      NO CHANGE
+Q-P4-E-001     1.000     1.000     0.000     1.000     0.667     1.000     1.000     0.333       IMPROVED
+Q-P4-E-002     1.000     1.000     0.000     1.000     0.500     1.000     1.000     0.500       IMPROVED
+----------------------------------------------------------------------------------------------------
+
+OKF IMPACT SUMMARY
+----------------------------------------
+Improved   : 18
+No change  : 12
+Regressed  : 0
+Total      : 30
+
+======================================================================
+CHANGED RESULTS
+======================================================================
+
+Q-M-001
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + incidents/high-latency.md
+    + network-elements/upf.md [REQUIRED]
+
+Q-R-001
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-MH-002
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-E-002
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+Q-P3-R-003
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P3-MH-001
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P3-MH-002
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P3-MH-003
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+Q-P3-MH-004
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+Q-P3-D-001
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P3-E-001
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+Q-P3-E-002
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + incidents/high-latency.md [REQUIRED]
+
+Q-P4-R-001
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+    + services/mobile-broadband.md
+
+Q-P4-R-002
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+    + services/mobile-broadband.md
+
+Q-P4-R-003
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P4-MH-001
+  Impact: IMPROVED
+  Interpretation: OKF surfaced additional required evidence in the Top-3, increasing evidence coverage.
+  Sources added by OKF:
+    + network-elements/upf.md [REQUIRED]
+
+Q-P4-E-001
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+Q-P4-E-002
+  Impact: IMPROVED
+  Interpretation: OKF brought the required evidence into the Top-3, improving retrieval completeness.
+  Sources added by OKF:
+    + services/mobile-broadband.md [REQUIRED]
+
+======================================================================
+OKF IMPACT SUMMARY
+======================================================================
+Improved   : 18
+No change  : 12
+Regressed  : 0
+Total      : 30
+
+================================================================================
+OKF NO-CHANGE ANALYSIS
+================================================================================
+
+Q-F-001
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-F-002
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-F-003
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-R-002
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-MH-001
+  Interpretation: OKF changed the retrieved sources but did not add any additional required evidence, so the evaluation outcome remained unchanged.
+
+Q-E-001
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P3-R-001
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P3-R-002
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P4-C-001
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P4-C-002
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P4-C-003
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+Q-P4-MH-002
+  Interpretation: Baseline already retrieved the complete required evidence set in Top-3, leaving no measurable retrieval gap for OKF to improve.
+
+======================================================================
+END
+======================================================================
