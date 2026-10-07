@@ -5,6 +5,7 @@ import numpy as np
 import onnxruntime as ort
 import yaml
 from transformers import AutoTokenizer
+from collections import defaultdict
 from evaluation import evaluate, mean_metric
 
 # ============================================================
@@ -594,6 +595,7 @@ for question in questions:
    )
    question_results.append({
        "id": qid,
+       "category": question.get("category", "unknown"),
        "baseline_hit1": baseline_eval["hit1"],
        "okf_hit1": okf_eval["hit1"],
        "baseline_hit3": baseline_eval["hit3"],
@@ -1007,6 +1009,77 @@ for result in question_results:
            f"  Interpretation: "
            f"{result['no_change_interpretation']}"
        )
+
+# ============================================================
+# Category-level analysis
+# ============================================================
+category_results = defaultdict(list)
+for result in question_results:
+   category = result.get("category", "unknown")
+   category_results[category].append(result)
+print()
+print("=" * 80)
+print("CATEGORY IMPACT SUMMARY")
+print("=" * 80)
+print(
+   f"{'Category':<25}"
+   f"{'Questions':>10}"
+   f"{'Improved':>10}"
+   f"{'No Change':>12}"
+   f"{'Regressed':>12}"
+)
+for category in sorted(category_results):
+   results = category_results[category]
+   improved = sum(
+       1 for r in results
+       if (
+           r["okf_hit3"] > r["baseline_hit3"]
+           or r["okf_recall"] > r["baseline_recall"]
+       )
+   )
+   regressed = sum(
+       1 for r in results
+       if (
+           r["okf_hit3"] < r["baseline_hit3"]
+           or r["okf_recall"] < r["baseline_recall"]
+       )
+   )
+   no_change = len(results) - improved - regressed
+   print(
+       f"{category:<25}"
+       f"{len(results):>10}"
+       f"{improved:>10}"
+       f"{no_change:>12}"
+       f"{regressed:>12}"
+   )
+print()
+print("=" * 80)
+print("CATEGORY METRICS")
+print("=" * 80)
+print(
+   f"{'Category':<25}"
+   f"{'Base H@3':>10}"
+   f"{'OKF H@3':>10}"
+   f"{'Δ H@3':>10}"
+   f"{'Base ER@3':>12}"
+   f"{'OKF ER@3':>12}"
+   f"{'Δ ER@3':>12}"
+)
+for category in sorted(category_results):
+   results = category_results[category]
+   base_h3 = sum(r["baseline_hit3"] for r in results) / len(results)
+   okf_h3 = sum(r["okf_hit3"] for r in results) / len(results)
+   base_recall = sum(r["baseline_recall"] for r in results) / len(results)
+   okf_recall = sum(r["okf_recall"] for r in results) / len(results)
+   print(
+       f"{category:<25}"
+       f"{base_h3:>10.3f}"
+       f"{okf_h3:>10.3f}"
+       f"{okf_h3 - base_h3:>10.3f}"
+       f"{base_recall:>12.3f}"
+       f"{okf_recall:>12.3f}"
+       f"{okf_recall - base_recall:>12.3f}"
+   )
 
 print()
 print("=" * 70)
