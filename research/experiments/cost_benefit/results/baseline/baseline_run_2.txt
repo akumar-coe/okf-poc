@@ -1,0 +1,318 @@
+Loaded corpus: 42 chunks
+Loaded questions: 30
+MiniLM model loaded
+Corpus embeddings: (42, 384)
+FAISS index created
+Vectors indexed: 42
+
+==============================
+BASELINE RETRIEVAL RESULTS
+==============================
+
+ Q-F-001
+Question: What is the primary responsibility of the 5G UPF?
+Required: ['network-elements/upf.md']
+  #1 score=0.6802 source=network-elements/upf.md chunk=C0-032
+  #2 score=0.6555 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.5965 source=network-elements/upf.md chunk=C0-033
+Hit@1: 1.0
+Hit@3: 1.0
+Evidence Recall@3: 1.0
+
+ Q-F-002
+Question: What is the primary role of a 5G gNB?
+Required: ['network-elements/gnb.md']
+  #1 score=0.8176 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.7544 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.6881 source=network-elements/gnb.md chunk=C0-010
+Hit@1: 1.0
+Hit@3: 1.0
+Evidence Recall@3: 1.0
+
+ Q-F-003
+Question: What does an IP router do in the network?
+Required: ['network-elements/router.md']
+  #1 score=0.5687 source=network-elements/router.md chunk=C0-023
+  #2 score=0.5311 source=network-elements/router.md chunk=C0-018
+  #3 score=0.4108 source=network-elements/router.md chunk=C0-025
+Hit@1: 1.0
+Hit@3: 1.0
+Evidence Recall@3: 1.0
+
+ Q-M-001
+Question: Which network elements are involved in delivering the mobile broadband service?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/router.md', 'network-elements/gnb.md']
+  #1 score=0.7283 source=services/mobile-broadband.md chunk=C0-038
+  #2 score=0.6122 source=services/mobile-broadband.md chunk=C0-035
+  #3 score=0.5968 source=services/mobile-broadband.md chunk=C0-040
+Hit@1: 1.0
+Hit@3: 0.75
+Evidence Recall@3: 0.8125
+
+ Q-R-001
+Question: Which network elements could contribute to high network latency?
+Required: ['network-elements/gnb.md', 'network-elements/upf.md', 'network-elements/router.md', 'incidents/high-latency.md']
+  #1 score=0.7778 source=incidents/high-latency.md chunk=C0-004
+  #2 score=0.7125 source=services/mobile-broadband.md chunk=C0-041
+  #3 score=0.6696 source=incidents/high-latency.md chunk=C0-001
+Hit@1: 1.0
+Hit@3: 0.6
+Evidence Recall@3: 0.7
+
+ Q-R-002
+Question: Which service can be affected by high network latency?
+Required: ['services/mobile-broadband.md', 'incidents/high-latency.md']
+  #1 score=0.7333 source=services/mobile-broadband.md chunk=C0-041
+  #2 score=0.6950 source=incidents/high-latency.md chunk=C0-001
+  #3 score=0.6866 source=incidents/high-latency.md chunk=C0-004
+Hit@1: 1.0
+Hit@3: 0.6666666666666666
+Evidence Recall@3: 0.75
+
+ Q-MH-001
+Question: If the UPF experiences overload, which service could be affected?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md']
+  #1 score=0.7425 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.5518 source=incidents/high-latency.md chunk=C0-005
+  #3 score=0.4903 source=network-elements/upf.md chunk=C0-032
+Hit@1: 1.0
+Hit@3: 0.5714285714285714
+Evidence Recall@3: 0.7142857142857143
+
+ Q-MH-002
+Question: A mobile broadband service is experiencing high latency. Which network elements should an engineer investigate?
+Required: ['network-elements/router.md', 'services/mobile-broadband.md', 'incidents/high-latency.md', 'network-elements/gnb.md', 'network-elements/upf.md']
+  #1 score=0.6515 source=services/mobile-broadband.md chunk=C0-041
+  #2 score=0.6302 source=incidents/high-latency.md chunk=C0-007
+  #3 score=0.5942 source=incidents/high-latency.md chunk=C0-001
+Hit@1: 1.0
+Hit@3: 0.5
+Evidence Recall@3: 0.675
+
+ Q-E-001
+Question: Why is the 5G UPF relevant when investigating high network latency?
+Required: ['network-elements/upf.md', 'incidents/high-latency.md']
+  #1 score=0.6609 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.5895 source=incidents/high-latency.md chunk=C0-004
+  #3 score=0.5754 source=services/mobile-broadband.md chunk=C0-041
+Hit@1: 1.0
+Hit@3: 0.5555555555555556
+Evidence Recall@3: 0.7111111111111111
+
+ Q-E-002
+Question: Explain the relationship between the mobile broadband service, the 5G gNB and the 5G UPF.
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.8393 source=network-elements/upf.md chunk=C0-032
+  #2 score=0.7514 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.6885 source=network-elements/gnb.md chunk=C0-013
+Hit@1: 1.0
+Hit@3: 0.5
+Evidence Recall@3: 0.7066666666666667
+
+ Q-P3-R-001
+Question: Which service depends on the 5G gNB for connectivity?
+Required: ['services/mobile-broadband.md', 'network-elements/gnb.md']
+  #1 score=0.8219 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.7781 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.7135 source=services/mobile-broadband.md chunk=C0-040
+Hit@1: 1.0
+Hit@3: 0.5454545454545454
+Evidence Recall@3: 0.7333333333333333
+
+ Q-P3-R-002
+Question: Which service depends on the 5G UPF for user-plane connectivity?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md']
+  #1 score=0.7854 source=services/mobile-broadband.md chunk=C0-040
+  #2 score=0.7135 source=network-elements/upf.md chunk=C0-030
+  #3 score=0.6777 source=network-elements/upf.md chunk=C0-032
+Hit@1: 1.0
+Hit@3: 0.5833333333333334
+Evidence Recall@3: 0.7555555555555555
+
+ Q-P3-R-003
+Question: Which network components are associated with the High Network Latency incident?
+Required: ['network-elements/gnb.md', 'network-elements/upf.md', 'network-elements/router.md', 'incidents/high-latency.md']
+  #1 score=0.8148 source=services/mobile-broadband.md chunk=C0-041
+  #2 score=0.8026 source=incidents/high-latency.md chunk=C0-001
+  #3 score=0.7365 source=incidents/high-latency.md chunk=C0-004
+Hit@1: 0.9230769230769231
+Hit@3: 0.5384615384615384
+Evidence Recall@3: 0.7166666666666667
+
+ Q-P3-MH-001
+Question: If the Mobile Broadband Service is experiencing a problem, which network elements should be investigated along its service path?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/router.md', 'network-elements/gnb.md']
+  #1 score=0.6626 source=incidents/high-latency.md chunk=C0-008
+  #2 score=0.6217 source=services/mobile-broadband.md chunk=C0-038
+  #3 score=0.5839 source=services/mobile-broadband.md chunk=C0-040
+Hit@1: 0.8571428571428571
+Hit@3: 0.5
+Evidence Recall@3: 0.6833333333333333
+
+ Q-P3-MH-002
+Question: A High Network Latency incident affects the Mobile Broadband Service. Which network elements are relevant to investigating the service impact?
+Required: ['network-elements/router.md', 'services/mobile-broadband.md', 'incidents/high-latency.md', 'network-elements/gnb.md', 'network-elements/upf.md']
+  #1 score=0.7088 source=services/mobile-broadband.md chunk=C0-041
+  #2 score=0.6824 source=incidents/high-latency.md chunk=C0-001
+  #3 score=0.6766 source=incidents/high-latency.md chunk=C0-008
+Hit@1: 0.8666666666666667
+Hit@3: 0.4666666666666667
+Evidence Recall@3: 0.6644444444444445
+
+ Q-P3-MH-003
+Question: How is the 5G gNB connected to the Mobile Broadband Service through the 5G UPF?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.8593 source=network-elements/upf.md chunk=C0-032
+  #2 score=0.8025 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.7361 source=network-elements/gnb.md chunk=C0-013
+Hit@1: 0.875
+Hit@3: 0.4375
+Evidence Recall@3: 0.6645833333333333
+
+ Q-P3-MH-004
+Question: Why could a High Network Latency condition involving the 5G UPF affect the Mobile Broadband Service?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'incidents/high-latency.md']
+  #1 score=0.7460 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.5923 source=network-elements/upf.md chunk=C0-032
+  #3 score=0.5651 source=incidents/high-latency.md chunk=C0-004
+Hit@1: 0.8823529411764706
+Hit@3: 0.4117647058823529
+Evidence Recall@3: 0.6647058823529413
+
+ Q-P3-D-001
+Question: A Mobile Broadband Service issue is suspected to originate in the user plane. Which network element is most directly relevant?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md']
+  #1 score=0.6348 source=incidents/high-latency.md chunk=C0-008
+  #2 score=0.6189 source=services/mobile-broadband.md chunk=C0-038
+  #3 score=0.5713 source=services/mobile-broadband.md chunk=C0-040
+Hit@1: 0.8333333333333334
+Hit@3: 0.3888888888888889
+Evidence Recall@3: 0.6555555555555556
+
+ Q-P3-E-001
+Question: What evidence connects the Mobile Broadband Service to the 5G gNB and the 5G UPF?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.8103 source=network-elements/upf.md chunk=C0-032
+  #2 score=0.7952 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.6947 source=network-elements/gnb.md chunk=C0-013
+Hit@1: 0.8421052631578947
+Hit@3: 0.3684210526315789
+Evidence Recall@3: 0.656140350877193
+
+ Q-P3-E-002
+Question: Explain the relationship between High Network Latency, the 5G UPF and the Mobile Broadband Service.
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'incidents/high-latency.md']
+  #1 score=0.7312 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.6571 source=network-elements/upf.md chunk=C0-032
+  #3 score=0.5878 source=services/mobile-broadband.md chunk=C0-038
+Hit@1: 0.85
+Hit@3: 0.35
+Evidence Recall@3: 0.6566666666666666
+
+ Q-P4-C-001
+Question: What operational conditions at the 5G gNB can contribute to degraded user experience?
+Required: ['network-elements/gnb.md']
+  #1 score=0.6481 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.6003 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.5538 source=network-elements/gnb.md chunk=C0-016
+Hit@1: 0.8571428571428571
+Hit@3: 0.38095238095238093
+Evidence Recall@3: 0.673015873015873
+
+ Q-P4-C-002
+Question: What operational impact can an overloaded 5G UPF have on network performance?
+Required: ['network-elements/upf.md']
+  #1 score=0.7103 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.6004 source=incidents/high-latency.md chunk=C0-005
+  #3 score=0.5214 source=network-elements/upf.md chunk=C0-032
+Hit@1: 0.8636363636363636
+Hit@3: 0.4090909090909091
+Evidence Recall@3: 0.6878787878787879
+
+ Q-P4-C-003
+Question: What network performance problems can be associated with poor IP router health?
+Required: ['network-elements/router.md']
+  #1 score=0.6940 source=network-elements/router.md chunk=C0-025
+  #2 score=0.5301 source=services/mobile-broadband.md chunk=C0-041
+  #3 score=0.4402 source=incidents/high-latency.md chunk=C0-005
+Hit@1: 0.8695652173913043
+Hit@3: 0.43478260869565216
+Evidence Recall@3: 0.7014492753623188
+
+ Q-P4-R-001
+Question: Which network element does the 5G gNB provide connectivity toward?
+Required: ['network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.8519 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.7786 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.7623 source=network-elements/gnb.md chunk=C0-010
+Hit@1: 0.875
+Hit@3: 0.4166666666666667
+Evidence Recall@3: 0.6930555555555555
+
+ Q-P4-R-002
+Question: Which network element receives user traffic from the 5G gNB?
+Required: ['network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.7731 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.7153 source=network-elements/gnb.md chunk=C0-010
+  #3 score=0.6957 source=network-elements/gnb.md chunk=C0-015
+Hit@1: 0.88
+Hit@3: 0.4
+Evidence Recall@3: 0.6853333333333333
+
+ Q-P4-R-003
+Question: Which network element provides connectivity from the 5G Core toward external data networks?
+Required: ['network-elements/upf.md']
+  #1 score=0.6175 source=network-elements/gnb.md chunk=C0-014
+  #2 score=0.6122 source=services/mobile-broadband.md chunk=C0-040
+  #3 score=0.5538 source=services/mobile-broadband.md chunk=C0-039
+Hit@1: 0.8461538461538461
+Hit@3: 0.38461538461538464
+Evidence Recall@3: 0.658974358974359
+
+ Q-P4-MH-001
+Question: What network path connects the 5G gNB to an external data network?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/router.md', 'network-elements/gnb.md']
+  #1 score=0.7731 source=network-elements/gnb.md chunk=C0-013
+  #2 score=0.7353 source=services/mobile-broadband.md chunk=C0-039
+  #3 score=0.7287 source=network-elements/gnb.md chunk=C0-015
+Hit@1: 0.8518518518518519
+Hit@3: 0.37037037037037035
+Evidence Recall@3: 0.6530864197530865
+
+ Q-P4-MH-002
+Question: A problem occurs in the user-plane path of the Mobile Broadband Service. Which network element is directly responsible for user-plane traffic handling, and which service can therefore be affected?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md']
+  #1 score=0.6291 source=incidents/high-latency.md chunk=C0-008
+  #2 score=0.5932 source=network-elements/upf.md chunk=C0-030
+  #3 score=0.5920 source=services/mobile-broadband.md chunk=C0-038
+Hit@1: 0.8214285714285714
+Hit@3: 0.39285714285714285
+Evidence Recall@3: 0.6654761904761904
+
+ Q-P4-E-001
+Question: Explain how the 5G gNB and 5G UPF are connected in the Mobile Broadband Service path.
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md', 'network-elements/gnb.md']
+  #1 score=0.8428 source=network-elements/upf.md chunk=C0-032
+  #2 score=0.7695 source=network-elements/gnb.md chunk=C0-015
+  #3 score=0.7024 source=network-elements/gnb.md chunk=C0-013
+Hit@1: 0.8275862068965517
+Hit@3: 0.3793103448275862
+Evidence Recall@3: 0.6655172413793103
+
+ Q-P4-E-002
+Question: Why can an overloaded 5G UPF affect the performance of the Mobile Broadband Service?
+Required: ['services/mobile-broadband.md', 'network-elements/upf.md']
+  #1 score=0.8175 source=network-elements/upf.md chunk=C0-033
+  #2 score=0.6042 source=network-elements/upf.md chunk=C0-032
+  #3 score=0.5898 source=incidents/high-latency.md chunk=C0-005
+Hit@1: 0.8333333333333334
+Hit@3: 0.36666666666666664
+Evidence Recall@3: 0.66
+
+==============================
+SUMMARY
+==============================
+Questions : 30
+Hit@1     : 0.833
+Hit@3     : 0.367
+Recall@3  : 0.660

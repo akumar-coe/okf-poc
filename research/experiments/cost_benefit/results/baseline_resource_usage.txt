@@ -1,0 +1,13 @@
+Baseline RAG Resource Usage
+
+Configuration: src/run_baseline_retrieval.py
+Benchmark: 30 questions
+Repetitions: 3
+Measurement method: /usr/bin/time -v
+
+Metric                         Run 1    Run 2    Run 3    Mean
+Elapsed time (s)                5.66     5.73     5.61   5.67
+Peak resident memory (KB)     956508   988116   952504   965709
+Exit statuses: [0, 0, 0]
+
+All three runs should exit successfully (status 0).
